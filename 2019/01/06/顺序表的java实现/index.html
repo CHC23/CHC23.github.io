@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="顺序表顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。可以用一个java接口(interface)List.java来表示顺序表：‘’’public inetrface List{">
+<meta name="description" content="顺序表顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。可以用一个java接口(interface)List.java来表示顺序表：12345678public inetrface List">
 <meta name="keywords" content="java 线性表">
 <meta property="og:type" content="article">
 <meta property="og:title" content="顺序表的java实现">
 <meta property="og:url" content="http://yoursite.com/2019/01/06/顺序表的java实现/index.html">
 <meta property="og:site_name" content="陈焕彩&#39;blog">
-<meta property="og:description" content="顺序表顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。可以用一个java接口(interface)List.java来表示顺序表：‘’’public inetrface List{">
+<meta property="og:description" content="顺序表顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。可以用一个java接口(interface)List.java来表示顺序表：12345678public inetrface List">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/01/06/顺序表的java实现/1.png">
-<meta property="og:updated_time" content="2019-01-06T14:33:06.600Z">
+<meta property="og:updated_time" content="2019-01-06T14:36:23.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="顺序表的java实现">
-<meta name="twitter:description" content="顺序表顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。可以用一个java接口(interface)List.java来表示顺序表：‘’’public inetrface List{">
+<meta name="twitter:description" content="顺序表顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。可以用一个java接口(interface)List.java来表示顺序表：12345678public inetrface List">
 <meta name="twitter:image" content="http://yoursite.com/2019/01/06/顺序表的java实现/1.png">
 
 
@@ -354,7 +354,7 @@
       
 
       
-        <h3 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h3><p>顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：<br><img src="/2019/01/06/顺序表的java实现/1.png" alt="顺序表结构"><br>一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。<br>可以用一个java接口(interface)List.java来表示顺序表：<br>‘’’<br>public inetrface List{<br>    public void initSeqList();     //初始化线性表<br>    public int lengthSeqList();    //获取表长度<br>    public DateType selectSeqList(int index) throws Exception;               //查找表的第i个元素<br>    public int locateSeqList(int index) throws Exception;                    //查找给定元素m的位置<br>    public void insertSeqList(int index,Object obj) throws Exception;        //插入元素<br>    public void deleteSeqList(int index) throws Exception;                   //删除元素<br>}<br>‘’’</p>
+        <h3 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h3><p>顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：<br><img src="/2019/01/06/顺序表的java实现/1.png" alt="顺序表结构"><br>一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。<br>可以用一个java接口(interface)List.java来表示顺序表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public inetrface List&#123;</span><br><span class="line">    public void initSeqList();     //初始化线性表</span><br><span class="line">    public int lengthSeqList();    //获取表长度</span><br><span class="line">    public DateType selectSeqList(int index) throws Exception;               //查找表的第i个元素</span><br><span class="line">    public int locateSeqList(int index) throws Exception;                    //查找给定元素m的位置</span><br><span class="line">    public void insertSeqList(int index,Object obj) throws Exception;        //插入元素</span><br><span class="line">    public void deleteSeqList(int index) throws Exception;                   //删除元素</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
