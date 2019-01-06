@@ -88,7 +88,7 @@
 <meta property="og:description" content="顺序表顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。可以用一个java接口(interface)List.java来表示顺序表：12345678public inetrface List">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/01/06/顺序表的java实现/1.png">
-<meta property="og:updated_time" content="2019-01-06T14:36:23.571Z">
+<meta property="og:updated_time" content="2019-01-06T14:39:03.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="顺序表的java实现">
 <meta name="twitter:description" content="顺序表顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。可以用一个java接口(interface)List.java来表示顺序表：12345678public inetrface List">
@@ -317,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/结数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">结数据结构</span>
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -354,7 +354,7 @@
       
 
       
-        <h3 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h3><p>顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：<br><img src="/2019/01/06/顺序表的java实现/1.png" alt="顺序表结构"><br>一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。<br>可以用一个java接口(interface)List.java来表示顺序表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public inetrface List&#123;</span><br><span class="line">    public void initSeqList();     //初始化线性表</span><br><span class="line">    public int lengthSeqList();    //获取表长度</span><br><span class="line">    public DateType selectSeqList(int index) throws Exception;               //查找表的第i个元素</span><br><span class="line">    public int locateSeqList(int index) throws Exception;                    //查找给定元素m的位置</span><br><span class="line">    public void insertSeqList(int index,Object obj) throws Exception;        //插入元素</span><br><span class="line">    public void deleteSeqList(int index) throws Exception;                   //删除元素</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h3 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h3><p>顺序表是线性表的顺序存储结构，在内存中用地址连续的一块存储空间顺序存放线性表的各个元素。内存中的地址空间实现线性的，因此用物理上的相邻实现数据元素之间的逻辑相邻是非常合理的。顺序表结构如下图：<br><img src="/2019/01/06/顺序表的java实现/1.png" alt="顺序表结构"><br>一维数组在内存中也是连续的存储空间，因此可以用一维数组来表示顺序表。<br>可以用一个java接口(interface)List.java来表示顺序表：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> inetrface List&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">initSeqList</span><span class="params">()</span></span>;     <span class="comment">//初始化线性表</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">lengthSeqList</span><span class="params">()</span></span>;    <span class="comment">//获取表长度</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">DateType <span class="title">selectSeqList</span><span class="params">(<span class="keyword">int</span> index)</span> <span class="keyword">throws</span> Exception</span>;               <span class="comment">//查找表的第i个元素</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">locateSeqList</span><span class="params">(<span class="keyword">int</span> index)</span> <span class="keyword">throws</span> Exception</span>;                    <span class="comment">//查找给定元素m的位置</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">insertSeqList</span><span class="params">(<span class="keyword">int</span> index,Object obj)</span> <span class="keyword">throws</span> Exception</span>;        <span class="comment">//插入元素</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">deleteSeqList</span><span class="params">(<span class="keyword">int</span> index)</span> <span class="keyword">throws</span> Exception</span>;                   <span class="comment">//删除元素</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
