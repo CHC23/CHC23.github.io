@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="《精通Spring 4.X   企业应用开发实战》笔记。 1.Spring概念Spring是由Rod Johnson开发的一个分层的Java SE/EE 应用一站式轻量级开源框架，Spring的核心是IOC（Inverse of Control即控制反转）和AOP（Aspect Oriented Programming即面向切面编程）。提供了展现层Spring MVC，持久层Spring JDBC">
+<meta name="description" content="1.IOC概念Spring 容器是 Spring 框架的核心。容器将创建对象，把它们连接在一起，配置它们，并管理他们的整个生命周期从创建到销毁。Spring 容器使用依赖注入（DI）来管理组成一个应用程序的组件。这些对象被称为 Spring Beans。 ioc(Inversion of Control)即控制反转，是Spring框架的核心。在传统方法中，我们是通过new关键字来实例化一个对象，S">
 <meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Spring笔记] 一spring概述">
-<meta property="og:url" content="http://yoursite.com/2019/03/05/spring笔记-一spring概述/index.html">
+<meta property="og:title" content="[Spring笔记二] IOC容器">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/Spring笔记二-IOC容器/index.html">
 <meta property="og:site_name" content="陈焕彩&#39;blog">
-<meta property="og:description" content="《精通Spring 4.X   企业应用开发实战》笔记。 1.Spring概念Spring是由Rod Johnson开发的一个分层的Java SE/EE 应用一站式轻量级开源框架，Spring的核心是IOC（Inverse of Control即控制反转）和AOP（Aspect Oriented Programming即面向切面编程）。提供了展现层Spring MVC，持久层Spring JDBC">
+<meta property="og:description" content="1.IOC概念Spring 容器是 Spring 框架的核心。容器将创建对象，把它们连接在一起，配置它们，并管理他们的整个生命周期从创建到销毁。Spring 容器使用依赖注入（DI）来管理组成一个应用程序的组件。这些对象被称为 Spring Beans。 ioc(Inversion of Control)即控制反转，是Spring框架的核心。在传统方法中，我们是通过new关键字来实例化一个对象，S">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/03/05/spring笔记-一spring概述/1.png">
-<meta property="og:updated_time" content="2019-03-05T14:58:19.645Z">
+<meta property="og:updated_time" content="2019-03-08T09:08:25.556Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Spring笔记] 一spring概述">
-<meta name="twitter:description" content="《精通Spring 4.X   企业应用开发实战》笔记。 1.Spring概念Spring是由Rod Johnson开发的一个分层的Java SE/EE 应用一站式轻量级开源框架，Spring的核心是IOC（Inverse of Control即控制反转）和AOP（Aspect Oriented Programming即面向切面编程）。提供了展现层Spring MVC，持久层Spring JDBC">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/05/spring笔记-一spring概述/1.png">
+<meta name="twitter:title" content="[Spring笔记二] IOC容器">
+<meta name="twitter:description" content="1.IOC概念Spring 容器是 Spring 框架的核心。容器将创建对象，把它们连接在一起，配置它们，并管理他们的整个生命周期从创建到销毁。Spring 容器使用依赖注入（DI）来管理组成一个应用程序的组件。这些对象被称为 Spring Beans。 ioc(Inversion of Control)即控制反转，是Spring框架的核心。在传统方法中，我们是通过new关键字来实例化一个对象，S">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/05/spring笔记-一spring概述/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/08/Spring笔记二-IOC容器/">
 
 
 
 
 
-  <title>[Spring笔记] 一spring概述 | 陈焕彩'blog</title>
+  <title>[Spring笔记二] IOC容器 | 陈焕彩'blog</title>
   
 
 
@@ -255,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/spring笔记-一spring概述/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/Spring笔记二-IOC容器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CHC">
@@ -272,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[Spring笔记] 一spring概述</h1>
+          <h1 class="post-title" itemprop="name headline">[Spring笔记二] IOC容器</h1>
         
 
         <div class="post-meta">
@@ -284,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-05T21:46:05+08:00">
-                2019-03-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-08T16:08:23+08:00">
+                2019-03-08
               </time>
             
 
@@ -344,41 +342,19 @@
       
 
       
-        <p>《精通Spring 4.X   企业应用开发实战》笔记。</p>
-<h4 id="1-Spring概念"><a href="#1-Spring概念" class="headerlink" title="1.Spring概念"></a>1.Spring概念</h4><p>Spring是由Rod Johnson开发的一个分层的Java SE/EE 应用一站式轻量级开源框架，Spring的核心是<font face="黑体" size="5">IOC</font>（Inverse of Control即控制反转）和<font face="黑体" size="5">AOP</font>（Aspect Oriented Programming即面向切面编程）。提供了展现层Spring MVC，持久层Spring JDBC，业务层事务管理等一站式企业级应用技术。是使用最多的Java应用开发框架。</p>
-<p>（突然想到”改革春风吹满地 中国人民真争气……“莫名喜感）</p>
-<h4 id="2-Spring优点"><a href="#2-Spring优点" class="headerlink" title="2.Spring优点"></a>2.Spring优点</h4><p>（1）、方便解耦，简化开发。通过Spring提供的IOC容器，我们可以将对象之间的依赖关系交给Spring控制，避免硬编码造成的过度程序耦合。有了Spring，我们不必再为单实例模式类、属性文件解析等这些底层的需求编写代码，可以更关注上层的应用。</p>
-<p>（2）、AOP编程的支持。AOP即面向切面编程，很多不容易用OOP（面相对象）实现的功能可以通过AOP应对。</p>
-<p>（3）、声明式事务的支持。在Spring中，我们可以从单调烦闷的事务管理代码中解脱出来，通过声明的方式灵活的进行事务管理，提高开发效率。</p>
-<p>（4）、方便测试。可以用非容器依赖的编程方式进行几乎所有的编程工作。</p>
-<p>（5）、集成各种优秀框架，Spring提供很多优秀框架的直接支持。</p>
-<p>（6）、降低Java EE API 的使用难度。Spring对很多难用的Java EE API（如JDBC   JavaMail等）提供了一个薄层封装，降低了使用难度。</p>
-<p>（7）、Java 源码是经典学习范例。Spring的源码设计精妙、结构清晰、匠心独运，处处体现着大师对Java设计模式灵活运用以及对Java技术的高深造诣。Spring框架源码无疑是Java技术的最佳实践范例。如果想在短时间内迅速提高自己的Java技术水平和应用开发水平，学习和研究Spring源码将会使你收到意想不到的效果。</p>
-<h4 id="3-Spring体系结构"><a href="#3-Spring体系结构" class="headerlink" title="3.Spring体系结构"></a>3.Spring体系结构</h4><p><img src="/2019/03/05/spring笔记-一spring概述/1.png" alt="Spring结构体系"></p>
-<p>（1）、核心容器（Core Container）</p>
-<p>​        核心容器由<strong>spring-core，spring-beans，spring-context，spring-context-support和spring-expression</strong>（SpEL，Spring表达式语言，Spring Expression Language）等模块组成。主要组件是BeanFactory，Bean工厂使用IOC（控制反转）的模式，IOC将类与类的依赖从代码中脱离出来，用配置的方式进行依赖关系描述。由IOC 容器负责依赖类之间的创建、拼接、管理、获取等。</p>
-<p>（2）、AOP</p>
-<p>​        即面向切面编程（暂时不太理解）。</p>
-<p>（3）、数据访问和访问</p>
-<p>​        数据访问/集成层包括 JDBC，ORM，OXM，JMS 和事务处理模块，它们的细节如下：</p>
-<p>​    （注：JDBC=Java Data Base Connectivity，ORM=Object Relational Mapping，OXM=Object XML     Mapping，JMS=Java Message Service）</p>
-<ul>
-<li><strong>JDBC</strong> 模块提供了JDBC抽象层，它消除了冗长的JDBC编码和对数据库供应商特定错误代码的解析。</li>
-<li><strong>ORM</strong> 模块提供了对流行的对象关系映射API的集成，包括JPA、JDO和Hibernate等。通过此模块可以让这些ORM框架和spring的其它功能整合，比如前面提及的事务管理。</li>
-<li><strong>OXM</strong> 模块提供了对OXM实现的支持，比如JAXB、Castor、XML Beans、JiBX、XStream等。</li>
-<li><strong>JMS</strong> 模块包含生产（produce）和消费（consume）消息的功能。从Spring 4.1开始，集成了spring-messaging模块。。</li>
-<li><strong>事务</strong>模块为实现特殊接口类及所有的 POJO 支持编程式和声明式事务管理。（注：编程式事务需要自己写beginTransaction()、commit()、rollback()等事务管理方法，声明式事务是通过注解或配置由spring自动处理，编程式事务粒度更细）</li>
-</ul>
-<p>（4）、web</p>
-<p>​        Web 层由 Web，Web-MVC，Web-Socket 和 Web-Portlet 组成，它们的细节如下：</p>
-<ul>
-<li><strong>Web</strong> 模块提供面向web的基本功能和面向web的应用上下文，比如多部分（multipart）文件上传功能、使用Servlet监听器初始化IoC容器等。它还包括HTTP客户端以及Spring远程调用中与web相关的部分。。</li>
-<li><strong>Web-MVC</strong> 模块为web应用提供了模型视图控制（MVC）和REST Web服务的实现。Spring的MVC框架可以使领域模型代码和web表单完全地分离，且可以与Spring框架的其它所有功能进行集成。</li>
-<li><strong>Web-Socket</strong> 模块为 WebSocket-based 提供了支持，而且在 web 应用程序中提供了客户端和服务器端之间通信的两种方式。</li>
-<li><strong>Web-Portlet</strong> 模块提供了用于Portlet环境的MVC实现，并反映了spring-webmvc模块的功能。</li>
-</ul>
-<p>（5）、WebSocket</p>
-<p>​        WebSocket提供在web应用中高效双向的通信，需要考虑到客户端和服务器端之间的高频和低延时消息交换。</p>
+        <h4 id="1-IOC"><a href="#1-IOC" class="headerlink" title="1.IOC"></a>1.IOC</h4><h6 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h6><p>Spring 容器是 Spring 框架的核心。容器将创建对象，把它们连接在一起，配置它们，并管理他们的整个生命周期从创建到销毁。Spring 容器使用依赖注入（DI）来管理组成一个应用程序的组件。这些对象被称为 Spring Beans。</p>
+<p><font face="黑体" size="5">ioc</font>(Inversion of Control)即控制反转，是Spring框架的核心。在传统方法中，我们是通过new关键字来实例化一个对象，Spring是用IOC创建对象。IOC容器是具有依赖注入功能的容器，在Spring框架中对象的控制权交给IOC容器。</p>
+<h6 id="Spring中的IOC容器"><a href="#Spring中的IOC容器" class="headerlink" title="Spring中的IOC容器"></a>Spring中的IOC容器</h6><p>BeanFactory容器和ApplicationContext容器。BeanFactory容器现已废弃，一般不使用。</p>
+<h4 id="2-ApplicationFactory容器"><a href="#2-ApplicationFactory容器" class="headerlink" title="2.ApplicationFactory容器"></a>2.ApplicationFactory容器</h4><p>ApplicationFactory容器也被成为上下文，是BeanFactory的子接口。ApplicationContext可以加载配置文件的bean。</p>
+<h6 id="ApplicationContext最常用的实现类"><a href="#ApplicationContext最常用的实现类" class="headerlink" title="ApplicationContext最常用的实现类"></a>ApplicationContext最常用的实现类</h6><p>FileSystemApplicationContext：从配置文件中加载已被定义的bean，默认从系统中文件路径加载配置文件，需要提供给构造器完整的配置文件路径。</p>
+<p>ClassPathXMLApplicationContext：从配置文件中加载已被定义的bean，默认从类路径中加载配置文件，不需要提供完整的文件路径。</p>
+<p>WebApplicationContext：在一个web应用程序范围内加载XML文件中已被定义的bean。</p>
+<h6 id="一个IOC例子"><a href="#一个IOC例子" class="headerlink" title="一个IOC例子"></a>一个IOC例子</h6><p>HelloWorld.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello  "</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Mian.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.FileSystemXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建Spring的IOC对象</span></span><br><span class="line"><span class="comment">//        ApplicationContext context=new FileSystemXmlApplicationContext</span></span><br><span class="line"><span class="comment">//                ("D:/Spring/SpringTest1/src/Beans.xml");</span></span><br><span class="line"></span><br><span class="line">        ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext</span><br><span class="line">                (<span class="string">"Beans.xml"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//IOC容器从配置文件中获取bean对象</span></span><br><span class="line">        HelloWorld helloworld=(HelloWorld) context.getBean(<span class="string">"helloworld"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//调用getName方法</span></span><br><span class="line">        helloworld.getName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置文件Beans.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 配置bean，属性配置方式</span></span><br><span class="line"><span class="comment">           id：唯一标识符</span></span><br><span class="line"><span class="comment">            class：类全名</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"helloworld"</span> <span class="attr">class</span>=<span class="string">"com.spring.test1.HelloWorld"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Spring"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -409,8 +385,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/01/servlet笔记-Filter和Listener/" rel="next" title="[servlet笔记] Filter和Listener">
-                <i class="fa fa-chevron-left"></i> [servlet笔记] Filter和Listener
+              <a href="/2019/03/05/spring笔记-一spring概述/" rel="next" title="[Spring笔记] 一spring概述">
+                <i class="fa fa-chevron-left"></i> [Spring笔记] 一spring概述
               </a>
             
           </div>
@@ -418,10 +394,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/08/Spring笔记二-IOC容器/" rel="prev" title="[Spring笔记二] IOC容器">
-                [Spring笔记二] IOC容器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +541,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Spring概念"><span class="nav-number">1.</span> <span class="nav-text">1.Spring概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Spring优点"><span class="nav-number">2.</span> <span class="nav-text">2.Spring优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring体系结构"><span class="nav-number">3.</span> <span class="nav-text">3.Spring体系结构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-IOC"><span class="nav-number">1.</span> <span class="nav-text">1.IOC</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#概念"><span class="nav-number">1.0.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Spring中的IOC容器"><span class="nav-number">1.0.2.</span> <span class="nav-text">Spring中的IOC容器</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ApplicationFactory容器"><span class="nav-number">2.</span> <span class="nav-text">2.ApplicationFactory容器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ApplicationContext最常用的实现类"><span class="nav-number">2.0.1.</span> <span class="nav-text">ApplicationContext最常用的实现类</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#一个IOC例子"><span class="nav-number">2.0.2.</span> <span class="nav-text">一个IOC例子</span></a></li></ol></li></div>
             
 
           </div>
