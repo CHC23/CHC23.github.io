@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.Bean的定义Bean是一个被实例化、组装、并通过Spring IOC容器管理的对象，是由容器提供的配置元数据创建的。 Spring启动时读取Bean的配置信息，并生成一份相应的Bean配置注册表，然后依据注册表实例化Bean，装配好Bean之间的依赖关系，为上层应用提供准备就绪的运行环境。 Spring4支持的Bean配置方式：基于XML文件的配置，基于注解的配置，基于java类的配置，基于">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Spring笔记三] Spring Bean">
+<meta property="og:url" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/index.html">
+<meta property="og:site_name" content="陈焕彩&#39;blog">
+<meta property="og:description" content="1.Bean的定义Bean是一个被实例化、组装、并通过Spring IOC容器管理的对象，是由容器提供的配置元数据创建的。 Spring启动时读取Bean的配置信息，并生成一份相应的Bean配置注册表，然后依据注册表实例化Bean，装配好Bean之间的依赖关系，为上层应用提供准备就绪的运行环境。 Spring4支持的Bean配置方式：基于XML文件的配置，基于注解的配置，基于java类的配置，基于">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/6.png">
+<meta property="og:updated_time" content="2019-03-10T09:16:30.450Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Spring笔记三] Spring Bean">
+<meta name="twitter:description" content="1.Bean的定义Bean是一个被实例化、组装、并通过Spring IOC容器管理的对象，是由容器提供的配置元数据创建的。 Spring启动时读取Bean的配置信息，并生成一份相应的Bean配置注册表，然后依据注册表实例化Bean，装配好Bean之间的依赖关系，为上层应用提供准备就绪的运行环境。 Spring4支持的Bean配置方式：基于XML文件的配置，基于注解的配置，基于java类的配置，基于">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/">
+
+
+
+
+
+  <title>[Spring笔记三] Spring Bean | 陈焕彩'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+  
+  <a href="https://github.com/CHC23"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈焕彩'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CHC">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈焕彩'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Spring笔记三] Spring Bean</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T11:22:33+08:00">
+                2019-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java-web/" itemprop="url" rel="index">
+                    <span itemprop="name">java web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-Bean的定义"><a href="#1-Bean的定义" class="headerlink" title="1.Bean的定义"></a>1.Bean的定义</h4><p>Bean是一个被实例化、组装、并通过Spring IOC容器管理的对象，是由容器提供的配置元数据创建的。</p>
+<p>Spring启动时读取Bean的配置信息，并生成一份相应的Bean配置注册表，然后依据注册表实例化Bean，装配好Bean之间的依赖关系，为上层应用提供准备就绪的运行环境。</p>
+<p>Spring4支持的Bean配置方式：基于XML文件的配置，基于注解的配置，基于java类的配置，基于Groovy动态语言的配置。</p>
+<p>Spring容器、Bean配置信息、Bean实现类、应用程序之间的相互关系:</p>
+<p><img src="/2019/03/10/Spring笔记三-Spring-Bean/1.png" alt="Spring容器内部协作关系"></p>
+<h4 id="2-XML文件配置一个Bean"><a href="#2-XML文件配置一个Bean" class="headerlink" title="2.XML文件配置一个Bean"></a>2.XML文件配置一个Bean</h4><p>Beans.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"helloworld"</span> <span class="attr">class</span>=<span class="string">"com.spring.test1.HelloWorld"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Spring"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>① “xmlns=”<a href="http://www.springframework.org/schema/beans&quot;" target="_blank" rel="noopener">http://www.springframework.org/schema/beans&quot;</a> ”：默认命名空间，没有空间名，用于Bean的定义。</p>
+<p>② “xmlns:xsi=”<a href="http://www.w3.org/2001/XMLSchema-instance&quot;" target="_blank" rel="noopener">http://www.w3.org/2001/XMLSchema-instance&quot;</a> ”：xsi标准命名空间，用于为每个文档的命名空间指定相应的Schema文件，是W3C定义的标准命名空间。</p>
+<p>③ “id”：Bean名称，通过容器的getBean（“helloworld”）获取对应Bean，在IOC容器中是唯一的， 起查找定位的功能。</p>
+<p>④ “class”：指定了Bean的实现类，必须是全类名。</p>
+<p>⑤ “<property>”：Bean的属性。</property></p>
+<h4 id="3-Bean的作用域"><a href="#3-Bean的作用域" class="headerlink" title="3.Bean的作用域"></a>3.Bean的作用域</h4><p>在配置文件配置Bean时，用户不但可以配置Bean的属性值及相互之间的依赖关系，还可以定义Bean的作用域。当在Spring定义一个Bean时必须声明该Bean的作用域。</p>
+<p>下面是Spring4支持的作用域类型。</p>
+<p><img src="/2019/03/10/Spring笔记三-Spring-Bean/2.png" alt="Bean作用域"></p>
+<p>request、session、global-session仅适用于webApplicationContext。</p>
+<h6 id="（1）singleton"><a href="#（1）singleton" class="headerlink" title="（1）singleton"></a>（1）singleton</h6><p>singleton是默认的作用域，当定义Bean时，如果没有指定作用域项，Bean的作用域被默认为singleton。当一个Bean的作用域为singleton时，IOC容器只会创建该Bean定义的唯一实例。</p>
+<p>也可以在Bean配置文件中中设置作用域为singleton</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"..."</span> <span class="attr">calss</span>=<span class="string">""</span> <span class="attr">scope</span>=<span class="string">"singleton"</span>&gt;</span></span><br><span class="line">.......</span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>singleton是单例模式，就是在创建起Bean时同时自动创建了一个Bean的对象，不管是否使用，都已存在，每次获取到的对象都是同一个对象。</p>
+<p>一个作用域为singleton的例子</p>
+<p>HelloWorld.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.message=message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Main.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"Beans.xml"</span>);</span><br><span class="line"></span><br><span class="line">        HelloWorld object1=(HelloWorld) context.getBean(<span class="string">"helloworld"</span>);</span><br><span class="line">        object1.setMessage(<span class="string">"Spring"</span>);</span><br><span class="line">        HelloWorld object2=(HelloWorld) context.getBean(<span class="string">"helloworld"</span>);</span><br><span class="line">        <span class="comment">//判断两次获取的实例是不是同一个</span></span><br><span class="line">        System.out.println(object1==object2);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置文件Beans.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 设置作用域为singleton--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"helloworld"</span> <span class="attr">class</span>=<span class="string">"com.spring.test2.HelloWorld"</span> <span class="attr">scope</span>=<span class="string">"singleton"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>输出结果如下</p>
+<p><img src="/2019/03/10/Spring笔记三-Spring-Bean/3.png" alt="Bean的作用域为singleton时"></p>
+<p>由输出结果可以看出，通过IOC容器获取的实例是同一个实例，说明当作用域为singleton时，在上下文环境中，仅有一个Bean实例。</p>
+<h6 id="（6）prototype"><a href="#（6）prototype" class="headerlink" title="（6）prototype"></a>（6）prototype</h6><p>当一个Bean的作用域定义为prototype时，一个Bean定义对应多个对象实例，IOC容器每次通过getBean()函数获取实例时都会创建一个新的Bean实例。因此，对有状态的bean应该使用prototype作用域，而对无状态的bean则应该使用singleton作用域。</p>
+<p>Prototype是原型模式，它在我们创建容器的时候并没有实例化，而是当我们获取bean的时候才会去创建一个对象，而且我们每次获取到的对象都不是同一个对象。</p>
+<p>当把上面例子配置文件改为</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"helloworld"</span> <span class="attr">class</span>=<span class="string">"com.spring.test2.HelloWorld"</span> <span class="attr">scope</span>=<span class="string">"prototype"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>时，控制台结果是</p>
+<p><img src="/2019/03/10/Spring笔记三-Spring-Bean/4.png" alt="Bean的作用域为prototype"></p>
+<p>可以看出IOC容器两次返回的Bean实例并不是同一个。</p>
+<h4 id="4-Bean的生命周期"><a href="#4-Bean的生命周期" class="headerlink" title="4.Bean的生命周期"></a>4.Bean的生命周期</h4><p>Bean是由 Spring容器管理的，Bean的生命周期也由Spring容器管理。简单来说Bean的生命周期就是Bean的实例化、初始化、应用、销毁的过程。</p>
+<p>下图是Bean生命周期的完整过程（图来自《Spring4.x企业应用实战开发》）</p>
+<p><img src="/2019/03/10/Spring笔记三-Spring-Bean/5.png" alt="Bean生命周期流程图"></p>
+<p>① 当getBean()方法获取一个Bean时，Spring容器会调用<font face="" color="red">InstantiationAwarePostProcessor</font>接口的<font face="" color="red">postProcessBeforeInstantiation()</font>方法对Bean进行实例化，默认Bean是单例模式；</p>
+<p>②Spring容器调用<font face="" color="red">InstantiationAwarePostProcessor</font>接口的<font face="" color="red">postProcessAfterInstantiation()</font>方法和<font face="" color="red">postProcessPropertyValues()</font>方法设置Bean的属性值；</p>
+<p>③如果Bean实现了<font face="" color="red">BeanNameAware</font>接口，Spring容器就将Bean的id传给<font face="" color="red">serBeanName()</font>方法；</p>
+<p>④如果Bean实现了<font face="" color="red">BeanFactoryAware</font>接口，Spring容器将调用<font face="" color="red">setBeanFactory()</font>方法传入BeanFactory实例；</p>
+<p>⑤如果Bean是实现了<font face="" color="red">BeanPostProcessor</font> 接口，Spring容器就会调用它的<font face="" color="red">postProcessBeforeInitialization()</font>方法；</p>
+<p>⑥如果Bean实现了<font face="" color="red">InitializingBean</font>接口，它的<font face="" color="red">afterPropertiesSet（）</font>方法会被调用。当Bean使用init-method属性配置初始化的方法时，此方法也会被调用；</p>
+<p>⑦如果bean实现了<font face="" color="red">BeanPostProcessor</font>接口，它的<font face="" color="red">postProcessAfterInitialization</font>接口方法将被调用；</p>
+<p>⑧此时的Bean已经被初始化完毕，可以使用了；</p>
+<p>⑨Bean销毁，当Bean实现<font face="" color="red">DisposableBean</font>接口或者使用<font face="" color="red">detroy-method</font>属性配置的销毁方法时，<font face="" color="red">distroy()</font>方法会被调用来销毁Bean。</p>
+<h4 id="5-Bean的前置和后置处理器"><a href="#5-Bean的前置和后置处理器" class="headerlink" title="5.Bean的前置和后置处理器"></a>5.Bean的前置和后置处理器</h4><p>Bean的前置和后置处理器分别允许在容器调用初始化方法和销毁方法之前对Bean进行操作。在Bean实例化之后，实现<font face="" color="red">BeanPostProcessor</font>接口,可以配置多个 BeanPostProcessor 接口，通过设置 BeanPostProcessor 实现的 <strong>Ordered</strong> 接口提供的 <strong>order</strong> 属性来控制这些 BeanPostProcessor 接口的执行顺序。</p>
+<p>一个人前置后置处理器的例子</p>
+<p>MyBeanPostProcessor.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spring.test3;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"这是"</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//bean的初始化方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initBean</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Bean被初始化"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//bean的销毁方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">distroyBean</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Bean被销毁"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>InitMyBeanPostProcessor.java，这个类实现了BeanPostProcessor接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spring.test3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.BeansException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.BeanPostProcessor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitMyBeanPostProcessor</span> <span class="keyword">implements</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//访问内置Bean对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean,String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"前置处理器："</span>+beanName);</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean,String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"后置处理器："</span>+beanName);</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Beans.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Hello Spring"</span> <span class="attr">class</span>=<span class="string">"com.spring.test3.MyBeanPostProcessor"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">init-method</span>=<span class="string">"initBean"</span> <span class="attr">destroy-method</span>=<span class="string">"distroyBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"一个Bean"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.spring.test3.InitMyBeanPostProcessor"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Main.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spring.test3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"Beans.xml"</span>);</span><br><span class="line">        MyBeanPostProcessor mpp=(MyBeanPostProcessor) context.getBean(<span class="string">"Hello Spring"</span>);</span><br><span class="line"></span><br><span class="line">        mpp.getName();</span><br><span class="line">        ((ClassPathXmlApplicationContext) context).registerShutdownHook();</span><br><span class="line">        <span class="comment">//context.registerShutdownHook();</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下</p>
+<p><img src="/2019/03/10/Spring笔记三-Spring-Bean/6.png" alt="前置后置处理器"></p>
+<h4 id="6-Bean和Bean之间的关系"><a href="#6-Bean和Bean之间的关系" class="headerlink" title="6.Bean和Bean之间的关系"></a>6.Bean和Bean之间的关系</h4><h6 id="1-继承"><a href="#1-继承" class="headerlink" title="(1)继承"></a>(1)继承</h6><p>当多个Bean有重复配置时，可以使用Bean的继承来消除代码的重复。定义一个父亲Bean作为模板，其他子Bean可以通过“parent”属性继承父Bean的配置</p>
+<p>下面是一个猫的例子</p>
+<p>ParentCat.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/08/Spring笔记二-IOC容器/" rel="next" title="[Spring笔记二] IOC容器">
+                <i class="fa fa-chevron-left"></i> [Spring笔记二] IOC容器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CHC</p>
+              <p class="site-description motion-element" itemprop="description">怀揣着浩瀚鸿鹄志和包子灌饼与豆浆</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CHC23" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:970223@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Bean的定义"><span class="nav-number">1.</span> <span class="nav-text">1.Bean的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-XML文件配置一个Bean"><span class="nav-number">2.</span> <span class="nav-text">2.XML文件配置一个Bean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Bean的作用域"><span class="nav-number">3.</span> <span class="nav-text">3.Bean的作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）singleton"><span class="nav-number">3.0.1.</span> <span class="nav-text">（1）singleton</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（6）prototype"><span class="nav-number">3.0.2.</span> <span class="nav-text">（6）prototype</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Bean的生命周期"><span class="nav-number">4.</span> <span class="nav-text">4.Bean的生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Bean的前置和后置处理器"><span class="nav-number">5.</span> <span class="nav-text">5.Bean的前置和后置处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Bean和Bean之间的关系"><span class="nav-number">6.</span> <span class="nav-text">6.Bean和Bean之间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-继承"><span class="nav-number">6.0.1.</span> <span class="nav-text">(1)继承</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CHC</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">个人博客 &mdash; <a class="theme-link" target="_blank" href="https://chc23.github.io/">CHC
+    </a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
