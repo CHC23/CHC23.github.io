@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/5.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/6.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/10/Spring笔记三-Spring-Bean/7.png">
-<meta property="og:updated_time" content="2019-03-10T14:47:54.145Z">
+<meta property="og:updated_time" content="2019-03-11T02:36:47.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Spring笔记三] Spring Bean">
 <meta name="twitter:description" content="1.Bean的定义Bean是一个被实例化、组装、并通过Spring IOC容器管理的对象，是由容器提供的配置元数据创建的。 Spring启动时读取Bean的配置信息，并生成一份相应的Bean配置注册表，然后依据注册表实例化Bean，装配好Bean之间的依赖关系，为上层应用提供准备就绪的运行环境。 Spring4支持的Bean配置方式：基于XML文件的配置，基于注解的配置，基于java类的配置，基于">
@@ -423,7 +423,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spring.test4;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"Beans.xml"</span>);</span><br><span class="line"></span><br><span class="line">        Cat cat=(Cat) context.getBean(<span class="string">"parentcat"</span>);</span><br><span class="line">        cat.getMessage1();</span><br><span class="line"></span><br><span class="line">        WhiteCat wc=(WhiteCat) context.getBean(<span class="string">"whitecat"</span>);</span><br><span class="line">        wc.getMessage1();</span><br><span class="line">        wc.getMessage2();</span><br><span class="line"></span><br><span class="line">        BlackCat bc=(BlackCat) context.getBean(<span class="string">"blackcat"</span>);</span><br><span class="line">        bc.getMessage1();</span><br><span class="line">        bc.getMessage3();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>结果如下</p>
 <p><img src="/2019/03/10/Spring笔记三-Spring-Bean/7.png" alt="Bean的继承"></p>
-
+<h6 id="（2）依赖"><a href="#（2）依赖" class="headerlink" title="（2）依赖"></a>（2）依赖</h6><p>Spring允许用户通过depends-on属性显示指定Bean前置依赖的Bean，前置依赖的Bean会在本Bean实例化之前创建好。</p>
+<h6 id="（3）引用"><a href="#（3）引用" class="headerlink" title="（3）引用"></a>（3）引用</h6>
       
     </div>
     
@@ -462,6 +463,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/11/Spring笔记四-依赖注入（1）：什么是依赖注入/" rel="prev" title="[Spring笔记四] 依赖注入（1）：什么是依赖注入">
+                [Spring笔记四] 依赖注入（1）：什么是依赖注入 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -538,7 +543,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -609,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Bean的定义"><span class="nav-number">1.</span> <span class="nav-text">1.Bean的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-XML文件配置一个Bean"><span class="nav-number">2.</span> <span class="nav-text">2.XML文件配置一个Bean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Bean的作用域"><span class="nav-number">3.</span> <span class="nav-text">3.Bean的作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）singleton"><span class="nav-number">3.0.1.</span> <span class="nav-text">（1）singleton</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（6）prototype"><span class="nav-number">3.0.2.</span> <span class="nav-text">（6）prototype</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Bean的生命周期"><span class="nav-number">4.</span> <span class="nav-text">4.Bean的生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Bean的前置和后置处理器"><span class="nav-number">5.</span> <span class="nav-text">5.Bean的前置和后置处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Bean和Bean之间的关系"><span class="nav-number">6.</span> <span class="nav-text">6.Bean和Bean之间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-继承"><span class="nav-number">6.0.1.</span> <span class="nav-text">(1)继承</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Bean的定义"><span class="nav-number">1.</span> <span class="nav-text">1.Bean的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-XML文件配置一个Bean"><span class="nav-number">2.</span> <span class="nav-text">2.XML文件配置一个Bean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Bean的作用域"><span class="nav-number">3.</span> <span class="nav-text">3.Bean的作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#（1）singleton"><span class="nav-number">3.0.1.</span> <span class="nav-text">（1）singleton</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（6）prototype"><span class="nav-number">3.0.2.</span> <span class="nav-text">（6）prototype</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Bean的生命周期"><span class="nav-number">4.</span> <span class="nav-text">4.Bean的生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Bean的前置和后置处理器"><span class="nav-number">5.</span> <span class="nav-text">5.Bean的前置和后置处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Bean和Bean之间的关系"><span class="nav-number">6.</span> <span class="nav-text">6.Bean和Bean之间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-继承"><span class="nav-number">6.0.1.</span> <span class="nav-text">(1)继承</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（2）依赖"><span class="nav-number">6.0.2.</span> <span class="nav-text">（2）依赖</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#（3）引用"><span class="nav-number">6.0.3.</span> <span class="nav-text">（3）引用</span></a></li></ol></li></div>
             
 
           </div>
