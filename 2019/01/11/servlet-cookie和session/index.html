@@ -88,7 +88,7 @@
 <meta property="og:description" content="一.cookiecookie是一段存储在客户端计算机的文本信息。当用户使用浏览器时，浏览器向服务器发送请求，服务器就向浏览器发送一组cookie，浏览器把cookie保存到本地，当下次发送请求时，浏览器把保存在本地的cookie发送到服务器，服务器通过这些cookie识别用户。 保存用户状态cookie对象通过key-value的形式来保存用户的状态，servlet创建cookie对象： 1Coo">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/01/11/servlet-cookie和session/1.png">
-<meta property="og:updated_time" content="2019-01-25T08:42:45.190Z">
+<meta property="og:updated_time" content="2019-03-12T15:13:03.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[servlet笔记] cookie和session">
 <meta name="twitter:description" content="一.cookiecookie是一段存储在客户端计算机的文本信息。当用户使用浏览器时，浏览器向服务器发送请求，服务器就向浏览器发送一组cookie，浏览器把cookie保存到本地，当下次发送请求时，浏览器把保存在本地的cookie发送到服务器，服务器通过这些cookie识别用户。 保存用户状态cookie对象通过key-value的形式来保存用户的状态，servlet创建cookie对象： 1Coo">
@@ -307,8 +307,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java-web/" itemprop="url" rel="index">
-                    <span itemprop="name">java web</span>
+                  <a href="/categories/Java-web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java web</span>
                   </a>
                 </span>
 
@@ -370,7 +370,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
 <p>​       返回分配给这个session的标识符。一个HTTP session的标识符是一个由服务器来建立和维持的唯一的字符串。</p>
 <p> 3、getLastAccessedTime</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getLastAccessedTime</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getLastAccessedTime</span><span class="params">()</span></span>;</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
 </code></pre><p>​       返回客户端最后一次发出与这个session有关的请求的时间，如果这个session是新建立的，返回-1。这个时间表示为自1970-1-1日（GMT）以来的毫秒数。</p>
 <p>4、getMaxInactiveInterval</p>
    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMaxInactiveInterval</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
@@ -385,10 +385,10 @@
 <p>​       以一个数组返回绑定到session上的所有数据的名称。</p>
 <p>​       当session无效后再调用这个方法会抛出一个IllegalStateException。</p>
 <p> 7、invalidate</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void invalidate();</span><br></pre></td></tr></table></figure>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public void invalidate();</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
 </code></pre><p>​       这个方法会终止这个session。所有绑定在这个session上的数据都会被清除。并通过HttpSessionBindingListener接口的valueUnbound方法发出通告。</p>
 <p>8、isNew</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNew</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNew</span><span class="params">()</span></span>;</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
 </code></pre><p>​       返回一个布尔值以判断这个session是不是新的。如果一个session已经被服务器建立但是还没有收到相应的客户端的请求，这个session将被 认为是新的。这意味着，这个客户端还没有加入会话或没有被会话公认。在他发出下一个请求时还不能返回适当的session认证信息。</p>
 <p>​       当session无效后再调用这个方法会抛出一个IllegalStateException。</p>
 <p>9、putValue</p>
@@ -541,7 +541,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
