@@ -347,9 +347,8 @@
           
           基于构造函数的依赖注入使用类中的构造函数通过配置Bean，然后通过Spring容器注入的方式给成员变量赋值。
 当容器调用带一组参数的类构造函数时,基于构造函数的依赖注入就完成了，其中每一个参数代表对其他类的依赖。
-一个构造函数注入的例子
-User.java
-123456789101112131415
+需要提供构造函数。
+使用构造函数的方式给service中的属性传值要求：类中需要提供对
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1056,8 +1055,8 @@ IOC(Inversion of Contr
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">java Web</span>
+                  <a href="/categories/java-web/" itemprop="url" rel="index">
+                    <span itemprop="name">java web</span>
                   </a>
                 </span>
 
@@ -1773,7 +1772,7 @@ Filter声明1.web.xml中通过xml标签声明指定一个过滤器。
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
