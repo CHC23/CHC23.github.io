@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在Spring配置文件中，可以注入的参数有以下几种类型：  字面值注入（基本数据类型） 引用其他的Bean 内部Bean注入 null值注入 级联属性注入 集合类型属性注入  1.字面值注入字面值：一般值可用字符串表示的值，通过标签进行注入，在默认情况下基本数据类型及其封装类、String类型等都可以采取字面值注入的方式。 字面值注入  ①中的&amp;lt;![CDATA[]]&amp;gt;:XML特殊标签，">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Spring4.x笔记六] 注入参数详解">
+<meta property="og:url" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/index.html">
+<meta property="og:site_name" content="陈焕彩&#39;blog">
+<meta property="og:description" content="在Spring配置文件中，可以注入的参数有以下几种类型：  字面值注入（基本数据类型） 引用其他的Bean 内部Bean注入 null值注入 级联属性注入 集合类型属性注入  1.字面值注入字面值：一般值可用字符串表示的值，通过标签进行注入，在默认情况下基本数据类型及其封装类、String类型等都可以采取字面值注入的方式。 字面值注入  ①中的&amp;lt;![CDATA[]]&amp;gt;:XML特殊标签，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/D:/MyBlog/hexo_blog/source/_posts/Spring4-x笔记六-注入参数详解/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/D:/MyBlog/hexo_blog/source/_posts/Spring4-x笔记六-注入参数详解/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/7.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/9.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/D:/MyBlog/hexo_blog/source/_posts/Spring4-x笔记六-注入参数详解/10.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/11.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/12.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/13.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/14.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/15.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/16.png">
+<meta property="og:updated_time" content="2019-03-17T09:36:16.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Spring4.x笔记六] 注入参数详解">
+<meta name="twitter:description" content="在Spring配置文件中，可以注入的参数有以下几种类型：  字面值注入（基本数据类型） 引用其他的Bean 内部Bean注入 null值注入 级联属性注入 集合类型属性注入  1.字面值注入字面值：一般值可用字符串表示的值，通过标签进行注入，在默认情况下基本数据类型及其封装类、String类型等都可以采取字面值注入的方式。 字面值注入  ①中的&amp;lt;![CDATA[]]&amp;gt;:XML特殊标签，">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/">
+
+
+
+
+
+  <title>[Spring4.x笔记六] 注入参数详解 | 陈焕彩'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+  
+  <a href="https://github.com/CHC23"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">陈焕彩'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Spring4-x笔记六-注入参数详解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CHC">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈焕彩'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Spring4.x笔记六] 注入参数详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-17T14:22:45+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在Spring配置文件中，可以注入的参数有以下几种类型：</p>
+<ul>
+<li>字面值注入（基本数据类型）</li>
+<li>引用其他的Bean</li>
+<li>内部Bean注入</li>
+<li>null值注入</li>
+<li>级联属性注入</li>
+<li>集合类型属性注入</li>
+</ul>
+<h5 id="1-字面值注入"><a href="#1-字面值注入" class="headerlink" title="1.字面值注入"></a>1.字面值注入</h5><p>字面值：一般值可用字符串表示的值，通过<value>标签进行注入，在默认情况下基本数据类型及其封装类、String类型等都可以采取字面值注入的方式。</value></p>
+<p>字面值注入</p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/1.png" alt="字面值注入"></p>
+<p>①中的&lt;![CDATA[]]&gt;:XML特殊标签，作用是让XML解析器将标签中的字符串当做普通文本来处理，防止特殊字符串破坏XML格式。</p>
+<p>XML常见的特殊字符</p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/2.png" alt="常见XML特殊字符"></p>
+<h5 id="2-引用其他Bean"><a href="#2-引用其他Bean" class="headerlink" title="2.引用其他Bean"></a>2.引用其他Bean</h5><p>IOC容器中定义的Bean可以相互引用，用IOC容器进行管理。一个Bean通过<ref>标签引用其他的Bean，建立依赖。</ref></p>
+<p><ref>标签可以通过一下三个属性引用容器中的其他Bean。</ref></p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/D:/MyBlog\hexo_blog\source\_posts\Spring4-x笔记六-注入参数详解\3.png" alt=""></p>
+<h5 id="3-内部Bean"><a href="#3-内部Bean" class="headerlink" title="3.内部Bean"></a>3.内部Bean</h5><p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/D:/MyBlog\hexo_blog\source\_posts\Spring4-x笔记六-注入参数详解\4.png" alt="内部Bean"></p>
+<h5 id="4-null值"><a href="#4-null值" class="headerlink" title="4.null值"></a>4.null值</h5><p>使用<null>标签为属性设置null注入值，通过它可以为Bean的字符串或其他对象类型的属性注入null值。</null></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"hello"</span> <span class="attr">class</span>=<span class="string">"xx.xx.xx.xx.xx"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"chc"</span>&gt;</span><span class="tag">&lt;<span class="name">null</span>/&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>该配置代码等同于调用hello.setChc(null)方法。</p>
+<h5 id="5-级联属性"><a href="#5-级联属性" class="headerlink" title="5.级联属性"></a>5.级联属性</h5><p>有点懵逼，先放下不提</p>
+<h5 id="6-集合类型属性注入"><a href="#6-集合类型属性注入" class="headerlink" title="6.集合类型属性注入"></a>6.集合类型属性注入</h5><p>java.util包中的集合类型是最常用的数据结构类型，主要包括List、Set、Map、Properties，Spring为这些集合类型属性提供了专属的配置标签。</p>
+<h5 id="①-List"><a href="#①-List" class="headerlink" title="① List"></a>① List</h5><p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/5.png" alt=""></p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/6.png" alt=""></p>
+<h5 id="②-Set"><a href="#②-Set" class="headerlink" title="② Set"></a>② Set</h5><p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/7.png" alt=""></p>
+<h5 id="③-Map"><a href="#③-Map" class="headerlink" title="③ Map"></a>③ Map</h5><p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/9.png" alt=""></p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/D:/MyBlog\hexo_blog\source\_posts\Spring4-x笔记六-注入参数详解\10.png" alt=""></p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/11.png" alt=""></p>
+<h5 id="④-Properties"><a href="#④-Properties" class="headerlink" title="④ Properties"></a>④ Properties</h5><p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/12.png" alt=""></p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/13.png" alt=""></p>
+<h5 id="⑤-强类型集合"><a href="#⑤-强类型集合" class="headerlink" title="⑤ 强类型集合"></a>⑤ 强类型集合</h5><p>强类型集合允许为集合元素指定类型。</p>
+<h5 id="⑥-集合合并"><a href="#⑥-集合合并" class="headerlink" title="⑥ 集合合并"></a>⑥ 集合合并</h5><p>Spring支持集合合并，允许子Bean继承父Bean的同名属性集合元素，并将子Bean中配置的集合属性值和父Bean中配置的同名属性集合合并起来作为最终的Bean的属性值。</p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/14.png" alt=""></p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/15.png" alt=""></p>
+<h5 id="⑦-一个例子（参考代码出处：https-www-w3cschool-cn-wkspring-kp5i1ico-html）"><a href="#⑦-一个例子（参考代码出处：https-www-w3cschool-cn-wkspring-kp5i1ico-html）" class="headerlink" title="⑦ 一个例子（参考代码出处：https://www.w3cschool.cn/wkspring/kp5i1ico.html）"></a>⑦ 一个例子（参考代码出处：<a href="https://www.w3cschool.cn/wkspring/kp5i1ico.html）" target="_blank" rel="noopener">https://www.w3cschool.cn/wkspring/kp5i1ico.html）</a></h5><p>Spring Bean：JavaCollection.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spring.test8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaCollection</span> </span>&#123;</span><br><span class="line">    List addressList;</span><br><span class="line">    Set addressSet;</span><br><span class="line">    Map addressMap;</span><br><span class="line">    Properties addressProp;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置List的setter方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddressList</span><span class="params">(List addressList)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.addressList=addressList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打印并返回List的所有元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">getAddressList</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"List的元素："</span>+addressList);</span><br><span class="line">        <span class="keyword">return</span> addressList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置Set的setter方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddressSet</span><span class="params">(Set addressSet)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.addressSet=addressSet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打印并返回Set的所有元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Set <span class="title">getAddressSet</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Set的元素："</span>+addressSet);</span><br><span class="line">        <span class="keyword">return</span> addressSet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置Map的setter方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddressMap</span><span class="params">(Map addressMap)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.addressMap=addressMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打印并返回Map的所有元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map <span class="title">getAddressMap</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Map的元素："</span>+addressMap);</span><br><span class="line">        <span class="keyword">return</span> addressMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置Properties的setter方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddressProp</span><span class="params">(Properties addressProp)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.addressProp=addressProp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打印并返回Properties的所有元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Properties <span class="title">getAddressProp</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Properties的元素："</span>+addressProp);</span><br><span class="line">        <span class="keyword">return</span> addressProp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Bean的配置文件Beans.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"javaCollection"</span> <span class="attr">class</span>=<span class="string">"com.spring.test8.JavaCollection"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--List属性注入 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"addressList"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>中国<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>山西省<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>晋中市<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>太谷县<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>山西农业大学<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--Set属性注入 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"addressSet"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>中国<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>山西省<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>晋中市<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>太谷县<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>山西农业大学<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--Map属性注入 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"addressMap"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"1"</span> <span class="attr">value</span>=<span class="string">"中国"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"2"</span> <span class="attr">value</span>=<span class="string">"山西省"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"3"</span> <span class="attr">value</span>=<span class="string">"晋中市"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"4"</span> <span class="attr">value</span>=<span class="string">"太谷县"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"5"</span> <span class="attr">value</span>=<span class="string">"山西农业大学"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--Properties属性注入 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"addressProp"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">props</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"1"</span>&gt;</span>中国<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"2"</span>&gt;</span>山西省<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"3"</span>&gt;</span>晋中市<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"4"</span>&gt;</span>太谷县<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"5"</span>&gt;</span>山西农业大学<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">props</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试类JavaCollectionText.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.spring.test8;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaCollectionTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"Beans.xml"</span>);</span><br><span class="line"></span><br><span class="line">        JavaCollection javaCollection=(JavaCollection) context.getBean(<span class="string">"javaCollection"</span>);</span><br><span class="line"></span><br><span class="line">        javaCollection.getAddressList();</span><br><span class="line">        javaCollection.getAddressSet();</span><br><span class="line">        javaCollection.getAddressMap();</span><br><span class="line">        javaCollection.getAddressProp();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<p><img src="/2019/03/17/Spring4-x笔记六-注入参数详解/16.png" alt="集合属性注入测试结果"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/12/Spring笔记五-依赖注入（2）：依赖注入的方式/" rel="next" title="[Spring4.x笔记五] 依赖注入（2）：依赖注入的方式">
+                <i class="fa fa-chevron-left"></i> [Spring4.x笔记五] 依赖注入（2）：依赖注入的方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CHC</p>
+              <p class="site-description motion-element" itemprop="description">怀揣着浩瀚鸿鹄志和包子灌饼与豆浆</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CHC23" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:970223@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-字面值注入"><span class="nav-number">1.</span> <span class="nav-text">1.字面值注入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-引用其他Bean"><span class="nav-number">2.</span> <span class="nav-text">2.引用其他Bean</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-内部Bean"><span class="nav-number">3.</span> <span class="nav-text">3.内部Bean</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-null值"><span class="nav-number">4.</span> <span class="nav-text">4.null值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-级联属性"><span class="nav-number">5.</span> <span class="nav-text">5.级联属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-集合类型属性注入"><span class="nav-number">6.</span> <span class="nav-text">6.集合类型属性注入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#①-List"><span class="nav-number">7.</span> <span class="nav-text">① List</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#②-Set"><span class="nav-number">8.</span> <span class="nav-text">② Set</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#③-Map"><span class="nav-number">9.</span> <span class="nav-text">③ Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#④-Properties"><span class="nav-number">10.</span> <span class="nav-text">④ Properties</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#⑤-强类型集合"><span class="nav-number">11.</span> <span class="nav-text">⑤ 强类型集合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#⑥-集合合并"><span class="nav-number">12.</span> <span class="nav-text">⑥ 集合合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#⑦-一个例子（参考代码出处：https-www-w3cschool-cn-wkspring-kp5i1ico-html）"><span class="nav-number">13.</span> <span class="nav-text">⑦ 一个例子（参考代码出处：https://www.w3cschool.cn/wkspring/kp5i1ico.html）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CHC</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">个人博客 &mdash; <a class="theme-link" target="_blank" href="https://chc23.github.io/">CHC
+    </a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
