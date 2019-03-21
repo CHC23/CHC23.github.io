@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="1.AOP是什么AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  “这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程”  ，这种事动态代理的方式，还有一种静态添加的方式。 AOP可以通过横向抽取机制实现无法通过纵向继承进行抽象的重复性代码。 AOP 希望将分散在各个业务逻辑代码中的相同非逻辑代码通过横向切割的">
+<meta name="description" content="1.AOP是什么AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  ：“这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程”  ，这种是动态代理的方式，还有一种静态添加的方式。 AOP可以通过横向抽取机制实现无法通过纵向继承进行抽象的重复性代码。 AOP 希望将分散在各个业务逻辑代码中的相同非逻辑代码通过横向切割">
 <meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Spring4.x笔记八] AOP概述">
 <meta property="og:url" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/index.html">
 <meta property="og:site_name" content="CHC&#39;blog">
-<meta property="og:description" content="1.AOP是什么AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  “这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程”  ，这种事动态代理的方式，还有一种静态添加的方式。 AOP可以通过横向抽取机制实现无法通过纵向继承进行抽象的重复性代码。 AOP 希望将分散在各个业务逻辑代码中的相同非逻辑代码通过横向切割的">
+<meta property="og:description" content="1.AOP是什么AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  ：“这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程”  ，这种是动态代理的方式，还有一种静态添加的方式。 AOP可以通过横向抽取机制实现无法通过纵向继承进行抽象的重复性代码。 AOP 希望将分散在各个业务逻辑代码中的相同非逻辑代码通过横向切割">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/1.png">
-<meta property="og:updated_time" content="2019-03-20T15:02:02.857Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/2.png">
+<meta property="og:updated_time" content="2019-03-21T12:51:28.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Spring4.x笔记八] AOP概述">
-<meta name="twitter:description" content="1.AOP是什么AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  “这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程”  ，这种事动态代理的方式，还有一种静态添加的方式。 AOP可以通过横向抽取机制实现无法通过纵向继承进行抽象的重复性代码。 AOP 希望将分散在各个业务逻辑代码中的相同非逻辑代码通过横向切割的">
+<meta name="twitter:description" content="1.AOP是什么AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  ：“这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程”  ，这种是动态代理的方式，还有一种静态添加的方式。 AOP可以通过横向抽取机制实现无法通过纵向继承进行抽象的重复性代码。 AOP 希望将分散在各个业务逻辑代码中的相同非逻辑代码通过横向切割">
 <meta name="twitter:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/1.png">
 
 
@@ -344,7 +345,7 @@
       
 
       
-        <h4 id="1-AOP是什么"><a href="#1-AOP是什么" class="headerlink" title="1.AOP是什么"></a>1.AOP是什么</h4><p>AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  <strong>“这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程” </strong> ，这种事动态代理的方式，还有一种静态添加的方式。</p>
+        <h4 id="1-AOP是什么"><a href="#1-AOP是什么" class="headerlink" title="1.AOP是什么"></a>1.AOP是什么</h4><p>AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  ：<strong>“这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程” </strong> ，这种是动态代理的方式，还有一种静态添加的方式。</p>
 <p>AOP可以通过横向抽取机制实现无法通过纵向继承进行抽象的重复性代码。</p>
 <p>AOP 希望将分散在各个业务逻辑代码中的相同非逻辑代码通过横向切割的方式抽取到一个独立的模块中，实现逻辑代码和非逻辑代码松耦合。</p>
 <p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/1.png" alt="横向抽取"></p>
@@ -364,7 +365,7 @@
 <li>用相对位置的表示的方位</li>
 </ul>
 <p>（2） Pointcut（切点）</p>
-<p>切点用来定位程序中的连接点（准确的说切点只定位到某个方法上，如果要定位到具体的连接点，还需要提供方位信息），切点和连接点不是一对一的关系，有个切点可以匹配多个连接点。</p>
+<p>切点用来定位程序中的连接点（准确的说切点只定位到某个方法上，如果要定位到具体的连接点，还需要提供方位信息），切点和连接点不是一对一的关系，一个切点可以匹配多个连接点。</p>
 <p>（3） Advice（增强）</p>
 <p>增强是织入目标连接点上的一段代码，是程序执行期间被Spring AOP实际调用的代码。增强包含连接点的方位信息和切点信息。</p>
 <p>Sprig提供的Advice接口都是带方位名的</p>
@@ -372,6 +373,31 @@
 <li>BeforeAdvice：表示方法调用前的位置。</li>
 <li>AfterReturningAdvice：表示访问返回后的位置。</li>
 </ul>
+<p>只有结合切点和增强才能确定特定的连接点并实施增强逻辑。</p>
+<p>（4） Target（目标对象）</p>
+<p>增强逻辑的织入目标类。在AOP中业务逻辑代码只需要实现非横切逻辑的程序代码，性能监控、日志等等横切逻辑则可以使用AOP动态织入到特定的连接点上。</p>
+<p>（5） Introduction（引介）</p>
+<p>一种特殊的增强，为类添加一些属性和方法。即使一个业务类没有实现某个接口，通过AOP的Introduction，也可以动态的为该类添加接口的实现逻辑，让此业务类成为这个接口的实现类。</p>
+<p>（6） Weaving（织入）</p>
+<p>织入是将增强添加到目标类的具体连接点上的过程。</p>
+<p>AOP的三种织入方式：</p>
+<ul>
+<li>编译期织入：使用特殊的Java编译器。</li>
+<li>类装载期织入：使用特殊的类装载器。</li>
+<li>动态代理织入：在运行期为目标类添加增强生成子类的方式。</li>
+</ul>
+<p><strong>在Spring中采用的是动态代理织入</strong></p>
+<p>（7） Proxy（代理）</p>
+<p>代理类：融合了初始类和增强逻辑的类。</p>
+<p>根据不同的代理方式，代理类可能是具有与原类相同接口的类，也可能是原类的子类，所以采用与调用原类相同的方式来调用代理类。</p>
+<p>（8） Aspect（切面）</p>
+<p>切面有切点和增强（引介）组成，既包括横切逻辑的定义，也包括连接点的定义。Spring AOP是负责实施切面的框架，它将切面定义的横切逻辑织入到切面所指定的连接点中。</p>
+<p>AOP工作重心：</p>
+<ul>
+<li>如何通过切点和增强定位到连接点上；</li>
+<li>如何在增强中编写切面的代码。</li>
+</ul>
+<h4 id="3-Spring-AOP"><a href="#3-Spring-AOP" class="headerlink" title="3.Spring AOP"></a>3.Spring AOP</h4><p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/2.png" alt="Spring AOP"></p>
 
       
     </div>
@@ -558,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-AOP是什么"><span class="nav-number">1.</span> <span class="nav-text">1.AOP是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-AOP术语"><span class="nav-number">2.</span> <span class="nav-text">2.AOP术语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-AOP是什么"><span class="nav-number">1.</span> <span class="nav-text">1.AOP是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-AOP术语"><span class="nav-number">2.</span> <span class="nav-text">2.AOP术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring-AOP"><span class="nav-number">3.</span> <span class="nav-text">3.Spring AOP</span></a></li></ol></div>
             
 
           </div>
