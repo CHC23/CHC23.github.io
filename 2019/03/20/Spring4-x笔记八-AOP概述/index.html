@@ -89,7 +89,12 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/1.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/2.png">
-<meta property="og:updated_time" content="2019-03-21T12:51:28.473Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/20/Spring4-x笔记八-AOP概述/7.png">
+<meta property="og:updated_time" content="2019-03-24T13:59:21.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Spring4.x笔记八] AOP概述">
 <meta name="twitter:description" content="1.AOP是什么AOP（Aspect Oriented Programming）即面向切面编程。来自网络的一句话  ：“这种在运行时，动态的将代码切入到类的指定方法或者指定位置上的编程思想，就是面向切面的编程”  ，这种是动态代理的方式，还有一种静态添加的方式。 AOP可以通过横向抽取机制实现无法通过纵向继承进行抽象的重复性代码。 AOP 希望将分散在各个业务逻辑代码中的相同非逻辑代码通过横向切割">
@@ -397,7 +402,33 @@
 <li>如何通过切点和增强定位到连接点上；</li>
 <li>如何在增强中编写切面的代码。</li>
 </ul>
-<h4 id="3-Spring-AOP"><a href="#3-Spring-AOP" class="headerlink" title="3.Spring AOP"></a>3.Spring AOP</h4><p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/2.png" alt="Spring AOP"></p>
+<h4 id="3-Spring-AOP"><a href="#3-Spring-AOP" class="headerlink" title="3.Spring AOP"></a>3.Spring AOP</h4><p>1.传统Spring AOP</p>
+<p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/2.png" alt="Spring AOP"></p>
+<p>2.AspectJ</p>
+<p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/3.png" alt=""></p>
+<h4 id="4-增强的类型"><a href="#4-增强的类型" class="headerlink" title="4.增强的类型"></a>4.增强的类型</h4><p>Spring支持5种类型的增强：</p>
+<ul>
+<li>前置增强：org.springframework.aop.BeforeAdvice，表示在目标方法执行前实施增强（Spring只支持方法级的增强，因此MethodBeforeAdvice是目前可用的增强）。</li>
+<li>后置增强：org.springframework.aop.AfterReturningAdvice，表示在目标方法执行后实施增强。</li>
+<li>环绕增强：org.aopalliance.intercept.MethodInterceptor，表示在目标方法执行前后实施增强。</li>
+<li>异常增强：org.springframework.aop.ThrowsAdvice，表示在目标方法抛出异常后执行。</li>
+<li>引介增强：org.springframework.aop.IntroductionInterceptor，表示在目标类中添加一些新的方法和属性。</li>
+</ul>
+<h4 id="5-切点类型"><a href="#5-切点类型" class="headerlink" title="5.切点类型"></a>5.切点类型</h4><p>Spring支持6种切点：</p>
+<ul>
+<li>静态方法切点：org.springframework.aop.support.StaticMethodMatcherPointcut，默认情况下它匹配所有的类，两个子类分别是NameMatchMethodPointcut（提供简单字符串匹配方法签名）和AbstractRegexpMethodPointcut（提供正则表达式匹配方法签名）。</li>
+<li>动态方法切点：org.springframework.aop.support.DynamicMetohdMatcherPointcut，默认情况匹配所有的类。</li>
+<li>注解切点：org.springframework.aop.support.annotation.AnnotationMatchingPointcut，支持在Bean中直接通过注解标签定义的切点。</li>
+<li>表达式切点：org.springframework.aop.support.ExpressionPonitcut，支持AspectJ切点表达式语法而定义的接口。</li>
+<li>流程切点：org.springframework.aop.support.ControlFlowPointcut，一种特殊的切点，根据程序执行堆栈的信息查看目标方法是否由某一个方法直接或间接发起调用，一次判断是否为匹配的连接点。</li>
+<li>复合切点：org.springframework.aop.support.ComposablePointcut，为创建多个切点而提供的方便操作类。</li>
+</ul>
+<h4 id="6-切面类型"><a href="#6-切面类型" class="headerlink" title="6.切面类型"></a>6.切面类型</h4><p>分为三类：一般切面，切点切面，引介切面。</p>
+<p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/4.png" alt=""></p>
+<p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/5.png" alt=""></p>
+<p>PointcutAvvistor主要有六个具体的实现类：</p>
+<p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/6.png" alt=""></p>
+<p><img src="/2019/03/20/Spring4-x笔记八-AOP概述/7.png" alt=""></p>
 
       
     </div>
@@ -437,6 +468,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/24/Spring4-x笔记九-Spring-AOP/" rel="prev" title="[Spring4.x笔记九] Spring AOP">
+                [Spring4.x笔记九] Spring AOP <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -513,7 +548,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -584,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-AOP是什么"><span class="nav-number">1.</span> <span class="nav-text">1.AOP是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-AOP术语"><span class="nav-number">2.</span> <span class="nav-text">2.AOP术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring-AOP"><span class="nav-number">3.</span> <span class="nav-text">3.Spring AOP</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-AOP是什么"><span class="nav-number">1.</span> <span class="nav-text">1.AOP是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-AOP术语"><span class="nav-number">2.</span> <span class="nav-text">2.AOP术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring-AOP"><span class="nav-number">3.</span> <span class="nav-text">3.Spring AOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-增强的类型"><span class="nav-number">4.</span> <span class="nav-text">4.增强的类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-切点类型"><span class="nav-number">5.</span> <span class="nav-text">5.切点类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-切面类型"><span class="nav-number">6.</span> <span class="nav-text">6.切面类型</span></a></li></ol></div>
             
 
           </div>
