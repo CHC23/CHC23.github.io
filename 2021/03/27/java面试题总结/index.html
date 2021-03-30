@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="CHC&#39;blog">
 <meta property="og:description" content="1.jdk,jre,jvm区别和联系jdk:java开发工具。包含jre和java工具（javac,java等）。 jre:java运行环境。包含bin(即jvm)和lib(java类库) jvm：java虚拟机，把javac编译出的class文件根据java类库解释成机器码在不同平台运行，即跨平台的特性。 2.==和equals()的区别==：比较的是堆栈中的值，基本类型比较的是栈中的变量值，引">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-28T15:12:38.980Z">
+<meta property="og:image" content="http://yoursite.com/2021/03/27/java面试题总结/双亲委派.jpg">
+<meta property="og:updated_time" content="2021-03-30T09:36:23.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java面试题总结">
 <meta name="twitter:description" content="1.jdk,jre,jvm区别和联系jdk:java开发工具。包含jre和java工具（javac,java等）。 jre:java运行环境。包含bin(即jvm)和lib(java类库) jvm：java虚拟机，把javac编译出的class文件根据java类库解释成机器码在不同平台运行，即跨平台的特性。 2.==和equals()的区别==：比较的是堆栈中的值，基本类型比较的是栈中的变量值，引">
+<meta name="twitter:image" content="http://yoursite.com/2021/03/27/java面试题总结/双亲委派.jpg">
 
 
 
@@ -366,7 +368,52 @@
 <li>接口的成员变量<strong>只能是public static final类型的</strong>，抽象类的成员变量可以是各种类型。</li>
 </ul>
 <h4 id="7-List和Set的区别"><a href="#7-List和Set的区别" class="headerlink" title="7.List和Set的区别"></a>7.List和Set的区别</h4><p>List：有序，按照对象进入的顺序保存对象，可以重复对象，可以存放对个NULL对象。使用get（int index）获取指定下标的元素，还可以使用lterator取出所有元素载逐一遍历。</p>
-<p>Set：无序存放，最多允许有一个Null对象，只能使用lterator取出所有元素再逐一遍历。</p>
+<p>Set：无序存放，不能重复，最多允许有一个Null对象，只能使用lterator取出所有元素再逐一遍历。</p>
+<h4 id="8-hashCode和equals"><a href="#8-hashCode和equals" class="headerlink" title="8.hashCode和equals"></a>8.hashCode和equals</h4><h6 id="hashCode"><a href="#hashCode" class="headerlink" title="hashCode()"></a>hashCode()</h6><p>hashCode()根据哈希函数计算出某对象在堆中的位置（在堆里面维护了一张哈希表）,返回对应的哈希码（一个整数）。hashCode（）定义在object类中，java的任何类都包含hashCode（）。用来比较两个对象是否一致。</p>
+<h6 id="hashCode和equals"><a href="#hashCode和equals" class="headerlink" title="hashCode和equals"></a>hashCode和equals</h6><p>重写的equals（）在比较使用时更加复杂全面，所以效率低。而由于不同的对象计算出来的哈希码也可能相同，即产生了哈希冲突。由此有这样两个问题：</p>
+<ul>
+<li>使用equals()相等的两个对象，他们的哈希码一定相同，equals()绝对可靠，但是效率相对低。</li>
+<li>使用hashCode()会产生哈希冲突，相对不可靠。</li>
+</ul>
+<p>解决办法是，当需要比较时，先试用hashCode()进行比较，如果返回的哈希码不相同，那么比较的对象肯定不相等，此时不需要再去使用equals()进行对比。当返回的哈希码相同时，再使用equals()进行对比，如果equals()相同，则比较的对象相等，反之不相等。这样使用既提高了可靠性也保证了效率。</p>
+<h6 id="应该遵守的规则"><a href="#应该遵守的规则" class="headerlink" title="应该遵守的规则"></a>应该遵守的规则</h6><ul>
+<li>两个对象相等，分别调用equals()方法时都会返回true。并且二者的hashCode也一定相同。</li>
+<li>两个对象有相同的hashCode，但它们不一定相同</li>
+<li>equals()重写之后比较的是对象的内容，所以当仅仅重写equals()而未重写hashCode()时，会出现equals相等的对象，hashCode不相等的情况。为了避免这种情况，在重写equals()的同时也要重写hashCode()。</li>
+<li>hashCode的默认行为是对堆上的对象产生独特值，如果没有重写hashCode()，则该class的两个对象无论如何都不会相等（即使这两个对象指向相同的数据）。</li>
+</ul>
+<h4 id="9-ArrayList和LinkedList区别"><a href="#9-ArrayList和LinkedList区别" class="headerlink" title="9.ArrayList和LinkedList区别"></a>9.ArrayList和LinkedList区别</h4><p><strong>ArrayList</strong>：底层实现是一个动态数组，需要连续内存存储，支持下标访问（随机访问）。其扩容机制：数组长度固定，当超出数组存储长度时需要进行扩容，通过调用Arrays.copyOf()把原数组拷贝到建立的新数组，然后插入新的数据（使用尾插法不会涉及元素的移动）。新数组的容量是原数组的1.5倍（原数组长度为偶数则是1.5倍，为奇数则是1.5倍-0.5）。由于需要拷贝整个数组，所以代价很高，最好在创建ArrayList对象时就指定大概的容量大小，减少扩容的次数。删除操作需要移动元素，时间复杂度为O(n)，代价非常高。</p>
+<p><strong>LinkedList</strong>：基于双向链表实现，不需要连续存储空间。其查询需要遍历链表，时间复杂度为O(n)，因此不适合查询。插入和删除操作不涉及元素的移动，因此适合插入和删除操作。遍历操作必须使用iterator，不能使用for循环，因为for循环遍历时，每次通过get(i)取得某一元素时都要对list重新遍历，性能消耗大。也不要使用indexOf返回元素索引进行遍历，因为会对整个list进行遍历，即使结果为空时也会遍历整个list.</p>
+<h4 id="10-HashMap和HashTable的底层实现，区别"><a href="#10-HashMap和HashTable的底层实现，区别" class="headerlink" title="10.HashMap和HashTable的底层实现，区别"></a>10.HashMap和HashTable的底层实现，区别</h4><p>HashMap使用拉链法解决哈希冲突，所以它的底层是一个“数组加链表”，无冲突的放入数组，发生冲突了则放在对应的链表。jdk8以后当链表长度超过8就会转化为红黑树（自平衡的二叉查找树），小于6时转回为链表。</p>
+<p>二者区别：</p>
+<ul>
+<li>HashMap没有使用synchrinized修饰，线程不安全。后者线程安全。</li>
+<li>HashMap允许键值为空。后者不允许。</li>
+</ul>
+<h4 id="11-ConcurrentHashMap"><a href="#11-ConcurrentHashMap" class="headerlink" title="11.ConcurrentHashMap"></a>11.ConcurrentHashMap</h4><h6 id="jdk7中"><a href="#jdk7中" class="headerlink" title="jdk7中"></a>jdk7中</h6><p>数据结构：ReentrantLock+Segment+HashEntry，一个Segment中包含一个HashEntry数组，拉链法解决哈希冲突。</p>
+<p>元素查询：二次Hash，第一次定位到Segment，第二次定位到元素所在的头部。</p>
+<p>锁：Segment分段锁，Segment继承ReentrantLock，锁定操作的Segment，其他的Segment不受影响。并发度为Segment的个数，可以通过构造函数指定，数组扩容不会影响其他的Segment。get方法无需加锁，volatile保证。</p>
+<h6 id="jdk8中"><a href="#jdk8中" class="headerlink" title="jdk8中"></a>jdk8中</h6><p>数据结构：synchronized+CAS(一种乐观锁机制)+Node+红黑树，Node的val和next都用volatile修饰，办证可见性。查找、替换、赋值都用CAS。</p>
+<p>锁：锁链表的<strong>head</strong>节点，不影响其他元素的读写，所粒度更细、效率更高（相比jdk7只锁了一个链表）。扩容时，阻塞所有的读写操作、并发扩容。</p>
+<p>读写操作无锁，Node的val和next使用volatile修饰，读写线程对该变量相互可见，数组使用volatile修饰，保证扩容时被读线程指道。</p>
+<h4 id="12-java字节码"><a href="#12-java字节码" class="headerlink" title="12.java字节码"></a>12.java字节码</h4><p>java虚拟机（jvm）是机器和编译程序之间的一层虚拟的机器，jvm在任何平台上都提供给编译程序一个共同的接口。</p>
+<p>java程序由javac编译成字节码，供虚拟机理解（只面向虚拟机），再有虚拟机解释成特定平台的机器码。每一种平台的解释器不同，但现实的虚拟机是相同的。java中编译和解释并存。</p>
+<p>java代码&rarr;编译器（javac）&rarr;字节码&rarr;jvm&rarr;解释器&rarr;二进制机器码&rarr;程序运行。</p>
+<p>字节码优点：</p>
+<ul>
+<li>在一定程度上解决了解释型语言执行效率低的问题，同时保留了解释型语言可移植的特点。</li>
+<li>字节码只面向虚拟机，不特指系统平台，因此java程序无需重新编译就可以在不同计算机系统上运行。</li>
+</ul>
+<h4 id="13-java类加器"><a href="#13-java类加器" class="headerlink" title="13.java类加器"></a>13.java类加器</h4><p>类加载器作用：将java的类动态的加载到jvm中执行</p>
+<p>jdk自带三个类加载器：</p>
+<ul>
+<li>bootstrapClassLoader（根类加载器）：最顶层的类加载器，默认负责加载%JAVA_HOME%lib下的jar包和class文件。</li>
+<li>ExtClassLoader（扩展类加载器）：继承bootstrapClassLoader，负责加载%JAVA_HOME%lib/ext下jar包和class文件。</li>
+<li><strong>AppClassLoader（系统类加载器）</strong>:继承ExtClassLoader，负责加载Classpath下的类文件。是系统类加载器，线程上下文加载器。</li>
+<li>继承ClassLoader实现自定义类加载器。</li>
+</ul>
+<h4 id="14-双亲委派模型"><a href="#14-双亲委派模型" class="headerlink" title="14.双亲委派模型"></a>14.双亲委派模型</h4><p>概念：当某个加载器需要加载某个.class文件时，它首先会会把这个任务委派给它的上级类加载器，向上查找缓存，如果顶层类加载器（bootstrapClassLoader）缓存中没有，则再向下查找加载路径。如图所示：</p>
+<p><img src="/2021/03/27/java面试题总结/双亲委派.jpg" alt="双亲委派"></p>
 
       
     </div>
@@ -553,7 +600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-jdk-jre-jvm区别和联系"><span class="nav-number">1.</span> <span class="nav-text">1.jdk,jre,jvm区别和联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-和equals-的区别"><span class="nav-number">2.</span> <span class="nav-text">2.==和equals()的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-final"><span class="nav-number">3.</span> <span class="nav-text">3.final</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-final作用："><span class="nav-number">3.0.1.</span> <span class="nav-text">1.final作用：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-为什么局部内部类和匿名内部类只能访问局部final变量"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.为什么局部内部类和匿名内部类只能访问局部final变量</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#4-String、StringBuffer、StringBuilder的区别和使用场景"><span class="nav-number">4.</span> <span class="nav-text">4.String、StringBuffer、StringBuilder的区别和使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-重载和重写的区别"><span class="nav-number">5.</span> <span class="nav-text">5.重载和重写的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-接口和抽象类"><span class="nav-number">6.</span> <span class="nav-text">6.接口和抽象类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-List和Set的区别"><span class="nav-number">7.</span> <span class="nav-text">7.List和Set的区别</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-jdk-jre-jvm区别和联系"><span class="nav-number">1.</span> <span class="nav-text">1.jdk,jre,jvm区别和联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-和equals-的区别"><span class="nav-number">2.</span> <span class="nav-text">2.==和equals()的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-final"><span class="nav-number">3.</span> <span class="nav-text">3.final</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-final作用："><span class="nav-number">3.0.1.</span> <span class="nav-text">1.final作用：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-为什么局部内部类和匿名内部类只能访问局部final变量"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.为什么局部内部类和匿名内部类只能访问局部final变量</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#4-String、StringBuffer、StringBuilder的区别和使用场景"><span class="nav-number">4.</span> <span class="nav-text">4.String、StringBuffer、StringBuilder的区别和使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-重载和重写的区别"><span class="nav-number">5.</span> <span class="nav-text">5.重载和重写的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-接口和抽象类"><span class="nav-number">6.</span> <span class="nav-text">6.接口和抽象类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-List和Set的区别"><span class="nav-number">7.</span> <span class="nav-text">7.List和Set的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-hashCode和equals"><span class="nav-number">8.</span> <span class="nav-text">8.hashCode和equals</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#hashCode"><span class="nav-number">8.0.1.</span> <span class="nav-text">hashCode()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#hashCode和equals"><span class="nav-number">8.0.2.</span> <span class="nav-text">hashCode和equals</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#应该遵守的规则"><span class="nav-number">8.0.3.</span> <span class="nav-text">应该遵守的规则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-ArrayList和LinkedList区别"><span class="nav-number">9.</span> <span class="nav-text">9.ArrayList和LinkedList区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-HashMap和HashTable的底层实现，区别"><span class="nav-number">10.</span> <span class="nav-text">10.HashMap和HashTable的底层实现，区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-ConcurrentHashMap"><span class="nav-number">11.</span> <span class="nav-text">11.ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#jdk7中"><span class="nav-number">11.0.1.</span> <span class="nav-text">jdk7中</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#jdk8中"><span class="nav-number">11.0.2.</span> <span class="nav-text">jdk8中</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-java字节码"><span class="nav-number">12.</span> <span class="nav-text">12.java字节码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-java类加器"><span class="nav-number">13.</span> <span class="nav-text">13.java类加器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-双亲委派模型"><span class="nav-number">14.</span> <span class="nav-text">14.双亲委派模型</span></a></li></div>
             
 
           </div>
