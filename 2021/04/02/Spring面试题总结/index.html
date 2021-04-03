@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.ioc包括容器概念、控制反转（ioc）、依赖注入 ioc容器：可以理解成一个map(key,value)，里面存放各种对象（在xml里面配置的bean节点，@repository、@service、@controller、@component），在项目启动时会读取配置的bean节点，根据全限定类名使用反射创建对象放到map里面或者扫描到使用上述注解的类还是通过反射创建对象放到map里面。 这时">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring面试题总结">
+<meta property="og:url" content="http://yoursite.com/2021/04/02/Spring面试题总结/index.html">
+<meta property="og:site_name" content="CHC&#39;blog">
+<meta property="og:description" content="1.ioc包括容器概念、控制反转（ioc）、依赖注入 ioc容器：可以理解成一个map(key,value)，里面存放各种对象（在xml里面配置的bean节点，@repository、@service、@controller、@component），在项目启动时会读取配置的bean节点，根据全限定类名使用反射创建对象放到map里面或者扫描到使用上述注解的类还是通过反射创建对象放到map里面。 这时">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2021/04/02/Spring面试题总结/bean生命周期.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/02/Spring面试题总结/Spring笔记三-Spring-Bean/2.png">
+<meta property="og:updated_time" content="2021-04-03T15:41:28.614Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring面试题总结">
+<meta name="twitter:description" content="1.ioc包括容器概念、控制反转（ioc）、依赖注入 ioc容器：可以理解成一个map(key,value)，里面存放各种对象（在xml里面配置的bean节点，@repository、@service、@controller、@component），在项目启动时会读取配置的bean节点，根据全限定类名使用反射创建对象放到map里面或者扫描到使用上述注解的类还是通过反射创建对象放到map里面。 这时">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/02/Spring面试题总结/bean生命周期.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/02/Spring面试题总结/">
+
+
+
+
+
+  <title>Spring面试题总结 | CHC'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+  
+  <a href="https://github.com/CHC23"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CHC'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/02/Spring面试题总结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CHC">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHC'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring面试题总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-02T11:07:23+08:00">
+                2021-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-ioc"><a href="#1-ioc" class="headerlink" title="1.ioc"></a>1.ioc</h4><p>包括容器概念、控制反转（ioc）、依赖注入</p>
+<h6 id="ioc容器："><a href="#ioc容器：" class="headerlink" title="ioc容器："></a>ioc容器：</h6><p>可以理解成一个map(key,value)，里面存放各种对象（在xml里面配置的bean节点，@repository、@service、@controller、@component），在项目启动时会读取配置的bean节点，根据全限定类名使用反射创建对象放到map里面或者扫描到使用上述注解的类还是通过反射创建对象放到map里面。</p>
+<p>这时ioc容器里面就存在了各种对象，在代码里面需要使用容器中的对象时，可以通过依赖注入来使用对象。</p>
+<h6 id="依赖注入（DI）："><a href="#依赖注入（DI）：" class="headerlink" title="依赖注入（DI）："></a>依赖注入（DI）：</h6><p>“获得依赖对象的过程被反转了”，控制反转以后，获得以来对象的管理过程由自身管理变成由ioc容器自动注入。依赖注入是实现ioc的方法，由ioc容器在运行期间，动态的将某种依赖关系注入到对象中。</p>
+<p>通过@autowired、@resource注解，或者xml里面bean节点的ref属性，项目启动时会读取bean节点的ref属性根据id注入（id 就是对象名），也会扫描注解，根据类型或者id注入（byType、byName类型的注解）。</p>
+<h6 id="控制反转（ioc）"><a href="#控制反转（ioc）" class="headerlink" title="控制反转（ioc）"></a>控制反转（ioc）</h6><p>没有使用ioc容器之前，A对象依赖于B对象，那么A在初始化时或者运行到某一点需要B的时候，A必须自己去创建一个对象B或者使用已经创建好的对象B。无论是创建还是使用对象B，控制权都在A自己手上。</p>
+<p>使用ioc容器之后，A对象和B对象失去了直接联系，当A运行到需要B时，ioc容器会主动创建一个B对象注入到A对象需要的地方。</p>
+<p>控制反转使对象的依赖过程从主动变成了被动过程，控制权反转过来。全部对象的控制权上交给ioc容器，ioc容器就成了整个系统的核心。</p>
+<h4 id="2-BeanFactory和ApplicationContext"><a href="#2-BeanFactory和ApplicationContext" class="headerlink" title="2.BeanFactory和ApplicationContext"></a>2.BeanFactory和ApplicationContext</h4><p>ApplicationContext是BeanFactory的子接口。</p>
+<p>ApplicationContext提供了更加完整的功能：</p>
+<ul>
+<li>继承MessageSource，支持国际化。</li>
+<li>统一的资源文件访问方式。</li>
+<li>提供在监听器中注册bean的事件。</li>
+<li>同时加载多个配置文件。</li>
+<li>载入多个上下文（有继承关系的），使每个上下文都专注于一个特定的层次（比如web应用层）</li>
+</ul>
+<p><strong>区别</strong>：</p>
+<ul>
+<li>BeanFactory采用懒加载的方式注入Bean，即只有在使用到某个Bean的时候（调用getBean()时），才会去加载这个Bean进行实例化。缺点是不能发现一些Spring的配置问题，例如如果Bean的某个属性没有注入，只有到第一次使用getBean()调用该Bean时才会抛出异常。</li>
+<li>ApplicationContext是在容器启动时一次性创建了所有的Bean，它会在容器启动时就发现Spring的配置问题，有利于检查所依赖的属性是否注入。ApplicationContext启动后预载入所有的单实例Bean，确保需要使用的时候不用等待，可以直接拿来用。</li>
+<li>ApplicationContext的不足是占用内存空间。当需要配置的Bean较多时，程序启动缓慢。</li>
+<li>BeanFactory同时使用编程的方式被创建，而ApplicationContext还可以通过声明的方式，例如使用ContextLoader。</li>
+<li>二者都支持BeanPostProcessor、BeanFactoryPostProcessor（后置处理器），区别在于BeanFactory需要手动注册，ApplicationContext是自动注册。</li>
+</ul>
+<h4 id="3-Spring-Bean的生命周期"><a href="#3-Spring-Bean的生命周期" class="headerlink" title="3.Spring Bean的生命周期"></a>3.Spring Bean的生命周期</h4><p>1.扫描路径，解析类得到BeanDefinition。</p>
+<p>2.如果有多个构造方法，则要推断使用哪个构造方法。</p>
+<p>3.确定构造方法之后，进行实例化得到一个对象。</p>
+<p>4.对对象中使用了@Autowired注解的属性进行依赖注入。</p>
+<p>5.回调Aware方法，比如BeanNameAware、BeanFactoryAware。</p>
+<p>6.调用BeanPostProcessor初始化前的postProcessorBeforeInitialization方法。</p>
+<p>7.调用初始化方法。</p>
+<p>8.调用BeanPostProcessor初始化后的postProcessorAfterInitialization方法，AOP动态代理在这里创建。</p>
+<p>9.如果当前创建的Bean是单例的，则把该Bean放入单例池。</p>
+<p>10.使用Bean。</p>
+<p>11.Spring容器关闭时，使用DisposableBean中的destory()销毁Bean。</p>
+<p><img src="/2021/04/02/Spring面试题总结/bean生命周期.png" alt=""></p>
+<h4 id="4-Bean的作用域"><a href="#4-Bean的作用域" class="headerlink" title="4.Bean的作用域"></a>4.Bean的作用域</h4><p><img src="/2021/04/02/Spring面试题总结/Spring笔记三-Spring-Bean/2.png" alt="Bean作用域"></p>
+<p>request和session作用域都只创建一个单例对象。</p>
+<p>application：bean被定义为在ServletContext（跨ioc容器）的生命周期中复用一个单例对象。</p>
+<p>websocket：bean被定义为在webSocket的生命周期中复用一个单例对象。</p>
+<h4 id="5-Spring中的单例Bean不是线程安全的"><a href="#5-Spring中的单例Bean不是线程安全的" class="headerlink" title="5.Spring中的单例Bean不是线程安全的"></a>5.Spring中的单例Bean不是线程安全的</h4><p>Spring中bean默认是单例模式，Spring没有对bean进行多线程的封装，因此不是线程安全的。</p>
+<p>如果Bean是有状态的（例如保存数据），那就需要程序员自己保证线程安全，最简单的方法就是把Bean的作用域从“singleton”改为“prototype”，这样每次请求Bean就是新建了一个Bean，就保证了线程安全。</p>
+<ul>
+<li>有状态：有数据存储功能。</li>
+<li>无状态：不会保存数据，controller、service、dao层本身不是线程安全的，如果只是调用里面的方法，而且多线程调用一个实例的方法，会在内存中复制变量，这是线程自己的工作内存（栈），是安全的。</li>
+</ul>
+<p>dao会操作数据库COnnection，Connection本身是有状态的，例如数据库事务，Spring的事务管理器使用Threadlocal为不同线程维护了一套独立的connection副本，保证线程的事务之间不会相互影响。</p>
+<h4 id="6-Spring事务"><a href="#6-Spring事务" class="headerlink" title="6.Spring事务"></a>6.Spring事务</h4><p> 事务是数据库中的概念，Spring事务是对数据库事务的扩展，提供更加方便操作事务的方式。</p>
+<h5 id="1-spring事务实现方式："><a href="#1-spring事务实现方式：" class="headerlink" title="1.spring事务实现方式："></a>1.spring事务实现方式：</h5><ul>
+<li>编程式事务（基本不再使用）：侵入式事务管理，需要在代码中调用beginTransaction()（开启事务），commit()（事务提交），rollBack()（事务回滚）等事务相关的方法。</li>
+<li>声明式事务：<ul>
+<li>@Transaction注解实现事务：在一个方法上加上@Transaction注解后，Spring会基于这个类生成一个代理对象，并且会将这个代理对象当做一个Bean，当使用这个代理对象的方法时    ，如果这个方法上存在@Transaction注解，那么代理逻辑会把事务的自动提交设置为false，然后再去执行业务逻辑，如果业务逻辑方法没有出现异常，那么代理逻辑中就会将事务提交，如果出现了异常，就会事务回滚。可以针对异常进行配置，比如利用@Transaction注解中的rollbackFor属性进行配置，默认情况下会对RuntimeException和Error进行回滚。</li>
+<li>基于 TransactionProxyFactoryBean的声明式事务管理</li>
+<li>基于Aspectj AOP配置事务</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-Spring事务隔离级别"><a href="#2-Spring事务隔离级别" class="headerlink" title="2.Spring事务隔离级别"></a>2.Spring事务隔离级别</h5><p>Spring事务隔离级别就是数据库隔离级别外加一个默认级别（<strong>对oracle默认是读已提交，mysql是可重复读</strong>）</p>
+<ul>
+<li>read uncommitted（读未提交）：允许事务读取其他事务改变但未提交的数据，会导致脏读、不可重复度、幻读。</li>
+<li>read committed（读已提交）：只允许事务读取其他事务已提交提交的数据，避免脏读但是会导致不可重复读、幻读（一个事务执行两次查询，第二次查询结果出现了第一次未出现的数据）。</li>
+<li>repeatable read（可重复读）：确保事务可以多次从一个字段中读取相同的值，在此事务进行期间禁止其他事务对此字段更新，但是仍会出现幻读。</li>
+<li>serializable（可串行化）：事务只能一个一个的序列化执行（基本不用）。</li>
+</ul>
+<p>如果数据库配置的隔离级别和Spring中配置的不同时，以Spring为准，但是当Spring配置的隔离级别不被数据库支持时，则以数据库为准。</p>
+<h5 id="3-Spring事务传播机制"><a href="#3-Spring事务传播机制" class="headerlink" title="3.Spring事务传播机制"></a>3.Spring事务传播机制</h5><p>多个事务方法相互调用时，事务在这些方法之间传播的方式。相互调用的方法事务的执行由事务传播机制决定。</p>
+<p>参数如下（针对被调用的方法，例如A调用B）：</p>
+<ul>
+<li>1.REQUIRED（默认的事务传播）：A没有事务，则B新建一个事务，如果A有事务，则B加入（使用）A的事务。</li>
+<li>2.SUPPORTS：A存在事务，则B加入A的事务，如果A没有事务，就以非事务方式运行。</li>
+<li>3.MANDTORY：A存在事务，则B加入A的事务，如果A没有事务，则抛出异常。</li>
+<li>4.REQUIREDS_NEW：B创建一个事务，如果A存在事务，则B挂起A的事务（二者事务互不干扰）。</li>
+<li>5.NOT_SUPPORTED：B以非事务方式执行，如果A存在事务，则B挂起A的事务。</li>
+<li>6.NEVER：B不使用事务，若果A存在事务，则抛出异常。</li>
+<li>7.NESTED：如果A没有事务，则B创建一个事务，如果A存在事务，则B在嵌套事务中执行。（A的事务是父事务，B的事务是子事务。父事务回滚则子事务也跟着回滚）。</li>
+</ul>
+<h5 id="4-Spring事务失效"><a href="#4-Spring事务失效" class="headerlink" title="4.Spring事务失效"></a>4.Spring事务失效</h5><p>Spring事务是AOP实现的，进行了切面增强，当AOP不起作用时，Spring事务就失效了</p>
+<p>常见情况：</p>
+<ul>
+<li><p>1.发生自调用：类里面使用this 调用本类的方法（this通常省略），此时this对象不是getBean()取出来的代理对象，而是对象本身，没有通过AOP的代理逻辑。</p>
+<p>解决方法：不使用this对象，而是通过代理对象，使用注入的对象。</p>
+</li>
+<li><p>2.方法不是public的：@Transaction注解只能用于public修饰的方法，否则事务无效。如果非要用在public方法上，必须使用AspectJ代理模式。</p>
+</li>
+<li>3.数据库不支持事务：例如mysql的Myisam引擎不支持事务</li>
+<li>4.没有被Spring管理：使用了@Transaction，但是该类并没有加入IOC容器的情况。</li>
+<li>5.异常被吃掉（回滚机制相关）：异常没有抛出或者抛出的异常没有定义（默认为RuntimeException）时，事务不会回滚。</li>
+</ul>
+<h4 id="5-Bean的自动装配"><a href="#5-Bean的自动装配" class="headerlink" title="5.Bean的自动装配"></a>5.Bean的自动装配</h4><h5 id="自动装配bean："><a href="#自动装配bean：" class="headerlink" title="自动装配bean："></a>自动装配bean：</h5><p>Spring容器自动装配相互协作的bean。</p>
+<h5 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h5><p>开启自动装配，只需要在xml文件<bean>中定义Autowire属性。</bean></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"customer"</span> <span class="attr">class</span>=<span class="string">"com.xxx.xxx.customer"</span> <span class="attr">autowire</span>=<span class="string">""</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Autowire的五种装配方式（5种参数）</p>
+<ul>
+<li>1.autowire=”no”：是缺省情况，不支持自动装配，通过“ref”属性手动设定，需要通过ref属性连接bean。以value或者ref方式指定属性的方式都是手动装配。</li>
+<li>2.autowire=”byName”：根据bean的属性名称进行自动装配。</li>
+<li>3.autowire=”byType”：根据bean的类型进行自动装配。Spring会根据属性的类型通过setter方法进行自动装配。当同一个类型有两个bean时，需要通过使用@Qualifier注解指定bean以解决冲突。 </li>
+<li>4.autowire=”constructor”：类似byType，不过是应用于构造器的参数。只有当一个bean与构造器参数的类型型同，则进行自动装配，否则报异常。</li>
+<li>5.autowire=”autodetect”：如果有默认的构造器，则通过constructor的方式，否则使用byType的方式。</li>
+</ul>
+<p>@Autowired注解：根据类型实现自动装配，可以在成员变量、setter方法、构造函数上使用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/27/java面试题总结/" rel="next" title="java面试题总结">
+                <i class="fa fa-chevron-left"></i> java面试题总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CHC</p>
+              <p class="site-description motion-element" itemprop="description">怀揣着浩瀚鸿鹄志和包子灌饼与豆浆</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/CHC23" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:970223@126.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ioc"><span class="nav-number">1.</span> <span class="nav-text">1.ioc</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ioc容器："><span class="nav-number">1.0.1.</span> <span class="nav-text">ioc容器：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#依赖注入（DI）："><span class="nav-number">1.0.2.</span> <span class="nav-text">依赖注入（DI）：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#控制反转（ioc）"><span class="nav-number">1.0.3.</span> <span class="nav-text">控制反转（ioc）</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#2-BeanFactory和ApplicationContext"><span class="nav-number">2.</span> <span class="nav-text">2.BeanFactory和ApplicationContext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring-Bean的生命周期"><span class="nav-number">3.</span> <span class="nav-text">3.Spring Bean的生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Bean的作用域"><span class="nav-number">4.</span> <span class="nav-text">4.Bean的作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Spring中的单例Bean不是线程安全的"><span class="nav-number">5.</span> <span class="nav-text">5.Spring中的单例Bean不是线程安全的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Spring事务"><span class="nav-number">6.</span> <span class="nav-text">6.Spring事务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-spring事务实现方式："><span class="nav-number">6.1.</span> <span class="nav-text">1.spring事务实现方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Spring事务隔离级别"><span class="nav-number">6.2.</span> <span class="nav-text">2.Spring事务隔离级别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Spring事务传播机制"><span class="nav-number">6.3.</span> <span class="nav-text">3.Spring事务传播机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Spring事务失效"><span class="nav-number">6.4.</span> <span class="nav-text">4.Spring事务失效</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Bean的自动装配"><span class="nav-number">7.</span> <span class="nav-text">5.Bean的自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自动装配bean："><span class="nav-number">7.1.</span> <span class="nav-text">自动装配bean：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现："><span class="nav-number">7.2.</span> <span class="nav-text">实现：</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CHC</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">个人博客 &mdash; <a class="theme-link" target="_blank" href="https://chc23.github.io/">CHC
+    </a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
