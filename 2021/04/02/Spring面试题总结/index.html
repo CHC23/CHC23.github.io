@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2021/04/02/Spring面试题总结/bean生命周期.png">
 <meta property="og:image" content="http://yoursite.com/2021/04/02/Spring面试题总结/Spring笔记三-Spring-Bean/2.png">
-<meta property="og:updated_time" content="2021-04-03T15:41:28.614Z">
+<meta property="og:updated_time" content="2021-04-09T10:51:36.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring面试题总结">
 <meta name="twitter:description" content="1.ioc包括容器概念、控制反转（ioc）、依赖注入 ioc容器：可以理解成一个map(key,value)，里面存放各种对象（在xml里面配置的bean节点，@repository、@service、@controller、@component），在项目启动时会读取配置的bean节点，根据全限定类名使用反射创建对象放到map里面或者扫描到使用上述注解的类还是通过反射创建对象放到map里面。 这时">
@@ -424,6 +424,23 @@
 <li>5.autowire=”autodetect”：如果有默认的构造器，则通过constructor的方式，否则使用byType的方式。</li>
 </ul>
 <p>@Autowired注解：根据类型实现自动装配，可以在成员变量、setter方法、构造函数上使用。</p>
+<h4 id="6-SpringMVC工作流程"><a href="#6-SpringMVC工作流程" class="headerlink" title="6.SpringMVC工作流程"></a>6.SpringMVC工作流程</h4><p>1.用户发送请求到前端控制器DispathcherServlet。</p>
+<p>2.DispathcherServlet接受请求（一个url）调用处理器映射器HanderMapping。</p>
+<p>3.处理器映射器找到具体的处理器Hander（根据xml配置。注解进行查找），生成处理器以及处理器拦截器（如果有）一并返回给前端控制器DispathcherServlet。</p>
+<p>4.DispathcherServlet调用处理器适配器HanderAdaper。</p>
+<p>5.HanderAdapter经过适配调用具体的处理器（controller，即后端控制器）。</p>
+<p>6.Controller执行完成返回ModelAndView给HanderAdapter。</p>
+<p>7.HanderAdapter将controller执行结果ModelAndView返回给DispathcherServlet。</p>
+<p>8.DispathcherServlet将ModelAndView传给视图解析器ViewReslover。</p>
+<p>9.视图解析器解析之后返回具体的View给DispathcherServlet</p>
+<p>10.DispathcherServlet根据View进行视图渲染（在视图中填充数据模型），</p>
+<p>11.DispathcherServlet将视图响应给用户。</p>
+<h4 id="7-SpringMVC的主要组件"><a href="#7-SpringMVC的主要组件" class="headerlink" title="7.SpringMVC的主要组件"></a>7.SpringMVC的主要组件</h4><p>Hander：即处理器。它直接对应MVC中的C也就是COntroller层，可以是类，也可以是方法。在COntroller层中使用@RequestMapping标注的方法都可以看成一个Hander，只要实际处理请求就是Hander。</p>
+<p><strong>1.HanderMapping</strong>：initHanderMappings(context)，处理器映射器，根据用户请求的url资源来查找Hander。</p>
+<p><strong>2.HanderAdapter</strong>：处理器适配器。对处理器进行执行。是适配器模式的应用，通过扩展适配器，可以对更多类型的处理器进行执行。</p>
+<p>3.ViewReslover：视图解析器（现在用得少），负责将处理结果生成具体的view。</p>
+<p>4.HanderEceptionReslover：处理异常，根据异常设置ModelAndView，再交给render进行渲染。</p>
+<p>6.<strong>DispathcherServlet</strong>：前端控制器，处理用户请求，调度其他组件。</p>
 
       
     </div>
@@ -610,7 +627,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ioc"><span class="nav-number">1.</span> <span class="nav-text">1.ioc</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ioc容器："><span class="nav-number">1.0.1.</span> <span class="nav-text">ioc容器：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#依赖注入（DI）："><span class="nav-number">1.0.2.</span> <span class="nav-text">依赖注入（DI）：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#控制反转（ioc）"><span class="nav-number">1.0.3.</span> <span class="nav-text">控制反转（ioc）</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#2-BeanFactory和ApplicationContext"><span class="nav-number">2.</span> <span class="nav-text">2.BeanFactory和ApplicationContext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring-Bean的生命周期"><span class="nav-number">3.</span> <span class="nav-text">3.Spring Bean的生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Bean的作用域"><span class="nav-number">4.</span> <span class="nav-text">4.Bean的作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Spring中的单例Bean不是线程安全的"><span class="nav-number">5.</span> <span class="nav-text">5.Spring中的单例Bean不是线程安全的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Spring事务"><span class="nav-number">6.</span> <span class="nav-text">6.Spring事务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-spring事务实现方式："><span class="nav-number">6.1.</span> <span class="nav-text">1.spring事务实现方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Spring事务隔离级别"><span class="nav-number">6.2.</span> <span class="nav-text">2.Spring事务隔离级别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Spring事务传播机制"><span class="nav-number">6.3.</span> <span class="nav-text">3.Spring事务传播机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Spring事务失效"><span class="nav-number">6.4.</span> <span class="nav-text">4.Spring事务失效</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Bean的自动装配"><span class="nav-number">7.</span> <span class="nav-text">5.Bean的自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自动装配bean："><span class="nav-number">7.1.</span> <span class="nav-text">自动装配bean：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现："><span class="nav-number">7.2.</span> <span class="nav-text">实现：</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ioc"><span class="nav-number">1.</span> <span class="nav-text">1.ioc</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ioc容器："><span class="nav-number">1.0.1.</span> <span class="nav-text">ioc容器：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#依赖注入（DI）："><span class="nav-number">1.0.2.</span> <span class="nav-text">依赖注入（DI）：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#控制反转（ioc）"><span class="nav-number">1.0.3.</span> <span class="nav-text">控制反转（ioc）</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#2-BeanFactory和ApplicationContext"><span class="nav-number">2.</span> <span class="nav-text">2.BeanFactory和ApplicationContext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring-Bean的生命周期"><span class="nav-number">3.</span> <span class="nav-text">3.Spring Bean的生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Bean的作用域"><span class="nav-number">4.</span> <span class="nav-text">4.Bean的作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Spring中的单例Bean不是线程安全的"><span class="nav-number">5.</span> <span class="nav-text">5.Spring中的单例Bean不是线程安全的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Spring事务"><span class="nav-number">6.</span> <span class="nav-text">6.Spring事务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-spring事务实现方式："><span class="nav-number">6.1.</span> <span class="nav-text">1.spring事务实现方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Spring事务隔离级别"><span class="nav-number">6.2.</span> <span class="nav-text">2.Spring事务隔离级别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Spring事务传播机制"><span class="nav-number">6.3.</span> <span class="nav-text">3.Spring事务传播机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Spring事务失效"><span class="nav-number">6.4.</span> <span class="nav-text">4.Spring事务失效</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Bean的自动装配"><span class="nav-number">7.</span> <span class="nav-text">5.Bean的自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自动装配bean："><span class="nav-number">7.1.</span> <span class="nav-text">自动装配bean：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现："><span class="nav-number">7.2.</span> <span class="nav-text">实现：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-SpringMVC工作流程"><span class="nav-number">8.</span> <span class="nav-text">6.SpringMVC工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-SpringMVC的主要组件"><span class="nav-number">9.</span> <span class="nav-text">7.SpringMVC的主要组件</span></a></li></div>
             
 
           </div>
